@@ -1,0 +1,120 @@
+generated: '2026-09-19'
+method: derived
+source: 'Derived by aligning the live MCP tools/list (mcp/fashionbyu-com-mcp-tools-list.json) with the REST route map the
+  server publishes at GET /iriz/v1/agent/mcp and with the published OpenAPI (openapi/fashionbyu-com-iriz-platform-api-openapi.yml,
+  108 operations, 0 operationIds). Nothing is fabricated: every route named here was either fetched live on 2026-09-19 or
+  is listed verbatim in the provider''s route map / spec.'
+purpose: Bind each MCP tool to the REST operation that backs it so the tool inherits a real input contract. The OpenAPI
+  carries no request schemas at all (no requestBody, no component schemas), so for this provider the MCP inputSchema is
+  the RICHER contract and the OpenAPI is the thinner one — the reverse of the usual direction.
+surfaces:
+  rest_openapi: openapi/fashionbyu-com-iriz-platform-api-openapi.yml
+  rest_openapi_note: 108 operations; only 4 of the 9 agent-commerce routes appear; no operationIds, no schemas, no requestBody
+  graphql: null
+  mcp: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
+  mcp_note: tools/list open (unauthenticated); write tools conditionally bearer-gated
+crosswalk:
+- tool: search_catalog
+  category: catalog
+  rest:
+  - GET /iriz/v1/agent/catalog
+  binding: rest
+  confidence: high
+  note: Backing operation is in the OpenAPI (no operationId is declared anywhere in the spec, so the method + path is the
+    identifier). The tool also fronts the route-map-only GET /iriz/agent/search for the query filter.
+- tool: get_product_feed
+  category: catalog
+  rest:
+  - GET /brand/<slug>/feed.json
+  - GET /iriz/agent/brands
+  binding: rest
+  confidence: medium
+  note: The backing route is named in the server's own route map (GET /iriz/v1/agent/mcp) and in the catalog response checkout_contract,
+    but is NOT in the published OpenAPI — the spec covers four of the nine agent-commerce routes.
+- tool: get_policies
+  category: policies
+  rest:
+  - GET /iriz/agent/policies?slug=
+  binding: rest
+  confidence: medium
+  note: The backing route is named in the server's own route map (GET /iriz/v1/agent/mcp) and in the catalog response checkout_contract,
+    but is NOT in the published OpenAPI — the spec covers four of the nine agent-commerce routes.
+- tool: create_cart
+  category: cart
+  rest:
+  - POST /iriz/v1/agent/cart/session
+  binding: rest
+  confidence: high
+  note: 'Backing operation is in the OpenAPI (no operationId is declared anywhere in the spec, so the method + path is the
+    identifier). '
+- tool: mutate_cart
+  category: cart
+  rest:
+  - POST /iriz/v1/agent/cart/items
+  binding: rest
+  confidence: medium
+  note: The backing route is named in the server's own route map (GET /iriz/v1/agent/mcp) and in the catalog response checkout_contract,
+    but is NOT in the published OpenAPI — the spec covers four of the nine agent-commerce routes.
+- tool: get_cart
+  category: cart
+  rest:
+  - GET /iriz/v1/agent/cart?cart_token=
+  binding: rest
+  confidence: medium
+  note: The backing route is named in the server's own route map (GET /iriz/v1/agent/mcp) and in the catalog response checkout_contract,
+    but is NOT in the published OpenAPI — the spec covers four of the nine agent-commerce routes.
+- tool: quote_cart
+  category: checkout
+  rest:
+  - POST /iriz/v1/agent/cart/quote
+  binding: rest
+  confidence: high
+  note: 'Backing operation is in the OpenAPI (no operationId is declared anywhere in the spec, so the method + path is the
+    identifier). '
+- tool: confirm_checkout
+  category: checkout
+  rest:
+  - POST /iriz/v1/agent/checkout/confirm
+  binding: rest
+  confidence: high
+  note: 'Backing operation is in the OpenAPI (no operationId is declared anywhere in the spec, so the method + path is the
+    identifier). '
+- tool: get_order
+  category: orders
+  rest:
+  - GET /iriz/v1/agent/checkout/order?order_id=
+  binding: rest
+  confidence: medium
+  note: The backing route is named in the server's own route map (GET /iriz/v1/agent/mcp) and in the catalog response checkout_contract,
+    but is NOT in the published OpenAPI — the spec covers four of the nine agent-commerce routes.
+mcp_only: []
+rest_only:
+- operations:
+  - GET /iriz/agent/brands
+  capability: brand discovery index (route map + llms.txt; fetched 200)
+- operations:
+  - GET /iriz/health
+  - GET /iriz/versions
+  capability: platform health and API version catalog (fetched 200, unauthenticated)
+- operations:
+  - GET /iriz/v1/agent-commerce/status
+  capability: agentic checkout flags and route map — 401 auth_level boss
+- operations:
+  - GET/POST /iriz/v1/brand-pages/dynamic-merchandising/{plan,apply,fleet/run}
+  capability: merchandising automation — in the OpenAPI, not probed (write surface, gated)
+- operations:
+  - /iriz/v1/{chat/stream,deploy-monitor,escalate,deploy-checklist,deploy-chaos-test,debug/*,version,pdf,chat-fragment,intake-fragment,sprint-*,start-workflow,workflow-status,qa-ingest,intake-bug,antigravity-sync}
+  - /{vigil,sentinel,healer,scribe,herald,debug}/*
+  - /boss-*
+  - /iris-*
+  - /admin/r2-write
+  capability: platform operations, self-healing and deploy automation — 96 of the 108 operations; answer 401 auth_level
+    standard|boss where probed
+coverage:
+  tools_named: 9
+  tools_bound_to_openapi_operation: 4
+  tools_bound_to_route_map_only: 5
+  mcp_only: 0
+  rest_ops_total: 108
+  rest_ops_with_a_tool: 4
+  rest_ops_deprecated_legacy_duplicates: 28

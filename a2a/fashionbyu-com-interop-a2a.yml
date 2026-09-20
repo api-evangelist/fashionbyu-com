@@ -1,0 +1,91 @@
+generated: '2026-09-19'
+method: probed
+source: https://mirror.fashionbyu.com/.well-known/agent.json
+discovery:
+  path: /.well-known/agent.json
+  canonical: false
+  host: mirror.fashionbyu.com
+  note: 'Found at the pre-0.3 legacy path on the mirror host, and at the same path on the registrable domain fashionbyu.com
+    (HTTP 200, 2,898 bytes, saved as fashionbyu-com-interop-agent-card-fashionbyu-com.json): the root-host copy lists two
+    skills instead of four and sets x-iriz.enabled false / inbound false, while the mirror copy sets both true. This is
+    the card a2aregistry.org lists for the operator. The canonical /.well-known/agent-card.json on the same host serves
+    a DIFFERENT card (the Storefront Commerce card, a2a/fashionbyu-com-a2a.yml).'
+conformance:
+  spec: A2A 1.0.0
+  grade: flavored
+  protocol_version: '0.3 and A2A-1.4 (declared as protocolVersions: ["0.3","A2A-1.4"])'
+  preferred_transport: null
+  deviations:
+  - no-protocolVersion
+  - protocolVersions-array-instead-of-protocolVersion
+  - no-preferredTransport
+  note: Fails the protocolVersion hard check (protocolVersions array, no protocolVersion string); "A2A-1.4" is not a published
+    A2A protocol version. capabilities is an object (streaming false, pushNotifications true, stateTransitionHistory true);
+    skills is an array of four. securitySchemes declares peerHmac (apiKey header x-iriz-peer-sig), bearer, and webBotAuth
+    (http scheme "signature", RFC 9421).
+card:
+  file: fashionbyu-com-interop-agent-card.json
+  name: IRIZ Platform Agent
+  url: https://mirror.fashionbyu.com/iriz/interop/tasks
+  version: 1.0.0
+  skills: 4
+  provider:
+    organization: IRIZ Platform
+    url: https://mirror.fashionbyu.com
+  documentation_url: https://mirror.fashionbyu.com/iriz/interop/status
+  security_schemes:
+  - peerHmac
+  - bearer
+  - webBotAuth
+  skill_ids:
+  - propose_improvement
+  - platform_status
+  - revision_request
+  - coding_task
+  x_iriz:
+    schema: agent-interop-v1
+    enabled: true
+    inbound: true
+    envelope: A2A-1.4
+    task_endpoint: https://mirror.fashionbyu.com/iriz/interop/tasks
+    token_endpoint: https://mirror.fashionbyu.com/iriz/interop/token
+    callback_endpoint: https://mirror.fashionbyu.com/iriz/interop/callback
+    mcp_endpoint: https://mirror.fashionbyu.com/iriz/agent/mcp
+    ap2_verify: https://mirror.fashionbyu.com/iriz/interop/ap2/verify
+    a2ui_catalog: https://mirror.fashionbyu.com/iriz/interop/a2ui/catalog
+    max_task_bytes: 4096
+    governance: Inbound tasks map to the governed evolution/proposal queue only — peers cannot trigger direct execution,
+      deploys, or paid work.
+x-evidence:
+  fetched: '2026-09-19'
+  url: https://mirror.fashionbyu.com/.well-known/agent.json
+  http_status: 200
+  content_type: application/json
+  body_bytes: 3879
+  body_parses_as: JSON object with AgentCard shape (name, description, url, provider, version, protocolVersions, documentationUrl,
+    capabilities, defaultInputModes, defaultOutputModes, securitySchemes, skills, x-iriz)
+  corroborating_probes:
+  - url: https://fashionbyu.com/.well-known/agent.json
+    http_status: 200
+    note: same card, two skills, x-iriz.enabled false — root-host copy saved verbatim
+  - url: https://mirror.fashionbyu.com/iriz/interop/tasks
+    method: GET
+    http_status: 404
+    note: '{"error":"endpoint_not_found","message":"No IRIZ handler is registered for /iriz/interop/tasks"} — GET is not
+      routed'
+  - url: https://mirror.fashionbyu.com/iriz/interop/tasks
+    method: POST {} (no credentials)
+    http_status: 401
+    note: '{"ok":false,"error":"peer_credentials_required"} — the A2A task transport IS served and is gated on registered-peer
+      credentials'
+  - url: https://mirror.fashionbyu.com/iriz/interop/status
+    http_status: 401
+    note: documentationUrl requires auth_level standard — not public
+  - url: https://mirror.fashionbyu.com/iriz/interop/a2ui/catalog
+    http_status: 401
+    note: auth_level standard
+  - url: https://mirror.fashionbyu.com/iriz/interop/token
+    method: GET
+    http_status: 404
+    note: GET not routed; the card documents POST { peer_id, secret } — not attempted, it would require credentials we do
+      not hold

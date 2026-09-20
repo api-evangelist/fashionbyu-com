@@ -1,0 +1,68 @@
+generated: '2026-09-19'
+method: searched
+source: https://mirror.fashionbyu.com/iriz/docs/versioning (text/markdown, 200) + GET /iriz/versions + live Deprecation/Link
+  headers + the OpenAPI deprecated flags, 2026-09-19
+versioning:
+  scheme: uri-path
+  current: v1
+  supported:
+  - v1
+  prefix: /iriz/v1
+  docs: https://mirror.fashionbyu.com/iriz/docs/versioning
+  catalog_endpoint: https://mirror.fashionbyu.com/iriz/versions
+  openapi_canonical: https://mirror.fashionbyu.com/iriz/v1/docs/spec.json
+  openapi_with_legacy: https://mirror.fashionbyu.com/iriz/docs/spec.json (byte-identical to the canonical one on 2026-09-19)
+  spec_version: v4.10.829+api-v1
+  worker_version: 5.1.2829 (GET /iriz/health)
+  policy_text: 'Preferred: GET /iriz/v1/{endpoint}. Legacy: /iriz/{endpoint} remains available; responses may include Deprecation:
+    true and a Link successor header. Full policy in docs/API_VERSIONING.md in the repository (repository not public).'
+deprecation:
+  policy_url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  deprecation_header: true
+  deprecation_header_form: 'Deprecation: true (boolean, not an RFC 9745 date)'
+  successor_link: true
+  successor_link_form: 'Link: </iriz/v1/agent/mcp>; rel="successor-version"'
+  sunset_header: false
+  sunset_date: null
+  observed: POST https://mirror.fashionbyu.com/iriz/agent/mcp on 2026-09-19
+  note: The policy names no removal date for legacy paths — "remains available".
+sla: null
+status_page: null
+health_endpoint:
+  url: https://mirror.fashionbyu.com/iriz/health
+  status: 200
+  body: '{"ok":true,"healthy":true,"version":"5.1.2829","bindings":{"d1":true,"kv":true,"r2":true,"queue":true,"durable_objects":"18/18"}}'
+  note: A machine health probe, also served on fashionbyu.com; not a status page, so no StatusPage pointer is emitted. GET
+    /iriz/status is 401 auth_level standard.
+deprecated_operations_count: 28
+deprecated_operations:
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/chat/stream
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/deploy-monitor
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/escalate
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/deploy-checklist
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/deploy-chaos-test
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/debug/sentry-test
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/docs/spec.json
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/docs
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/version
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/debug-auth
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/pdf
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/chat-fragment
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/intake-fragment
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/sprint-validate
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/sprint-source
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/start-workflow
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/workflow-status
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/qa-ingest
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/intake-bug
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/antigravity-sync
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/agent/catalog
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/agent/cart/session
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/agent/cart/quote
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/agent/checkout/confirm
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/agent-commerce/status
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/brand-pages/dynamic-merchandising/plan
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/brand-pages/dynamic-merchandising/apply
+- openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/brand-pages/dynamic-merchandising/fleet/run
+deprecated_operations_note: 'Computed from deprecated: true in the spec; the list is the legacy un-versioned twin of each
+  /iriz/v1/ operation. The legacy MCP path /iriz/agent/mcp is deprecated by header but is not in the OpenAPI.'

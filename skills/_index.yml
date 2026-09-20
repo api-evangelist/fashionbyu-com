@@ -1,0 +1,31 @@
+generated: '2026-09-19'
+method: generated
+source: Generated from the live MCP tools/list (mcp/fashionbyu-com-mcp-tools-list.json), the OpenAPI (openapi/fashionbyu-com-iriz-platform-api-openapi.yml
+  — no operationIds are declared, so operations are named by method + path) and conventions/ + errors/. No provider-published
+  skills or AGENTS.md were found (llms.txt links only endpoints).
+skills:
+- file: fashionbyu-com-shop-and-checkout.md
+  name: Shop a brand storefront and confirm checkout via MCP
+  api: openapi/fashionbyu-com-iriz-platform-api-openapi.yml
+  operations:
+  - GET /iriz/v1/agent/catalog
+  - POST /iriz/v1/agent/cart/session
+  - POST /iriz/v1/agent/cart/quote
+  - POST /iriz/v1/agent/checkout/confirm
+  tools:
+  - search_catalog
+  - create_cart
+  - mutate_cart
+  - get_cart
+  - quote_cart
+  - confirm_checkout
+  - get_order
+- file: fashionbyu-com-discover-brand-feeds.md
+  name: Discover a brand's machine-readable catalog, feed and policies
+  api: openapi/fashionbyu-com-iriz-platform-api-openapi.yml
+  operations:
+  - GET /iriz/v1/agent/catalog
+  tools:
+  - search_catalog
+  - get_product_feed
+  - get_policies

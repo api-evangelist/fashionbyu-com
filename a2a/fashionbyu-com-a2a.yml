@@ -1,0 +1,98 @@
+generated: '2026-09-19'
+method: probed
+source: https://mirror.fashionbyu.com/.well-known/agent-card.json
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: mirror.fashionbyu.com
+  note: 'Found at the canonical A2A path on the mirror host. The registrable domain fashionbyu.com answers the same path
+    with HTTP 403 {"ok":false,"error":"feature_disabled","code":"IRIZ_AGENTIC_CHECKOUT"} — the commerce feature is switched
+    off on that host, not absent from the platform. Ownership: provider.organization "IRIZ Platform", provider.url, url,
+    documentationUrl, every x-commerce endpoint and the feed/llms/sitemap templates all sit on mirror.fashionbyu.com; the
+    a2aregistry.org record this harvest came from lists https://mirror.fashionbyu.com/.well-known/agent.json for the same
+    operator. The card''s url is the MCP endpoint, not an A2A JSON-RPC transport: it names protocols [acp-compatible, mcp,
+    a2a] and the live server at that url speaks MCP (initialize/tools/list answered 2026-09-19).'
+conformance:
+  spec: A2A 1.0.0
+  grade: flavored
+  protocol_version: '0.3 (declared as protocolVersions: ["0.3"])'
+  preferred_transport: null
+  deviations:
+  - no-protocolVersion
+  - protocolVersions-array-instead-of-protocolVersion
+  - no-preferredTransport
+  note: 'Fails the protocolVersion hard check: the card carries a protocolVersions ARRAY, which A2A 1.0.0 does not define,
+    and no protocolVersion string. capabilities is an object and skills is an array. No preferredTransport; defaultInputModes/defaultOutputModes
+    present.'
+card:
+  file: fashionbyu-com-agent-card.json
+  name: IRIZ Storefront Commerce Agent
+  url: https://mirror.fashionbyu.com/iriz/agent/mcp
+  version: 1.0.0
+  skills: 4
+  provider:
+    organization: IRIZ Platform
+    url: https://mirror.fashionbyu.com
+  documentation_url: https://mirror.fashionbyu.com/iriz/agent-commerce/status
+  security_schemes:
+  - bearer
+  skill_ids:
+  - search_catalog
+  - product_feed
+  - cart_checkout
+  - policies
+  x_commerce:
+    mcp_endpoint: https://mirror.fashionbyu.com/iriz/agent/mcp
+    transport: streamable-http
+    tools:
+    - search_catalog
+    - get_product_feed
+    - get_policies
+    - create_cart
+    - mutate_cart
+    - get_cart
+    - quote_cart
+    - confirm_checkout
+    - get_order
+    token_required: false
+    protocols:
+    - acp-compatible
+    - mcp
+    - a2a
+    locales:
+    - en
+    - zh-CN
+sibling_card:
+  file: fashionbyu-com-interop-agent-card.json
+  manifest: a2a/fashionbyu-com-interop-a2a.yml
+  path: /.well-known/agent.json
+  note: The same host serves a second, different card (IRIZ Platform Agent — governed improvement proposals and peer task
+    delegation) at the legacy path; the commerce card above points at it as x-iriz is absent here, and the interop card
+    points back at this one as x-iriz.commerce_card.
+x-evidence:
+  fetched: '2026-09-19'
+  url: https://mirror.fashionbyu.com/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json
+  body_bytes: 2593
+  body_parses_as: JSON object with AgentCard shape (name, description, url, provider, version, protocolVersions, documentationUrl,
+    capabilities, defaultInputModes, defaultOutputModes, skills, securitySchemes, x-commerce)
+  corroborating_probes:
+  - url: https://fashionbyu.com/.well-known/agent-card.json
+    http_status: 403
+    note: '{"ok":false,"error":"feature_disabled","code":"IRIZ_AGENTIC_CHECKOUT"} — application-level deny, not a Cloudflare
+      challenge'
+  - url: https://mirror.fashionbyu.com/iriz/agent/mcp
+    method: POST tools/list
+    http_status: 200
+    note: 'nine tools returned with inputSchema; response carried Deprecation: true and Link: </iriz/v1/agent/mcp>; rel="successor-version"'
+  - url: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
+    method: POST initialize
+    http_status: 200
+    note: serverInfo iriz-agent-commerce 1.0.0, protocolVersion 2025-06-18
+  - url: https://mirror.fashionbyu.com/iriz/agent-commerce/status
+    http_status: 401
+    note: documentationUrl requires auth_level boss — the card's documentation link is not public
+  - url: https://www.fashionbyu.com/.well-known/agent-card.json
+    http_status: 0
+    note: www.fashionbyu.com is NXDOMAIN; the provider's llms.txt and robots.txt point every agent link at this host

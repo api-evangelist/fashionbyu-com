@@ -1,0 +1,143 @@
+generated: '2026-09-19'
+method: probed
+source: live GET of each path on 2026-09-19 with a browser User-Agent
+note: 'Three hosts in the record: fashionbyu.com (registrable domain), mirror.fashionbyu.com (API, MCP, docs and agent-card
+  host) and www.fashionbyu.com (the host the provider''s own llms.txt and robots.txt advertise), which is NXDOMAIN. Both
+  live hosts answer every unserved /.well-known/* path with HTTP 403 {"error":"Forbidden_4"} from the application (the negative-control
+  path got the same 403, so 403 = not served, not a soft-200 catch-all); HTML pages such as / and /openapi.json are behind
+  a Cloudflare managed challenge (403 "Just a moment..."). The only well-known documents served are the two A2A agent cards,
+  recorded in a2a/ and pointed at with type AgentCard. No security.txt, OAuth/OIDC metadata, oauth-protected-resource, api-catalog,
+  ai-plugin, mcp.json, UCP/ACP/AAuth or apis.json is published on any host, INCLUDING the MCP host (RFC 9728 protected-resource
+  metadata is absent there too). No WellKnown or SecurityTxt pointer is emitted.'
+path_echo_control: passed
+hit_count: 2
+hosts:
+- host: mirror.fashionbyu.com
+  role: API host, MCP host, docs host, agent-card host
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    file: a2a/fashionbyu-com-agent-card.json
+    content_type: application/json
+    bytes: 2593
+    note: A2A Storefront Commerce card — graded flavored in a2a/fashionbyu-com-a2a.yml
+  - path: /.well-known/agent.json
+    status: 200
+    file: a2a/fashionbyu-com-interop-agent-card.json
+    content_type: application/json
+    bytes: 3879
+    note: A2A Platform Interop card (legacy path) — graded flavored in a2a/fashionbyu-com-interop-a2a.yml
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/api-catalog.json
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/mcp.json
+    status: 403
+  - path: /.well-known/mcp/server-card.json
+    status: 403
+  - path: /.well-known/ucp.json
+    status: 403
+  - path: /.well-known/acp.json
+    status: 403
+  - path: /.well-known/aauth-resource.json
+    status: 403
+  - path: /.well-known/apis.json
+    status: 403
+  - path: /apis.json
+    status: 403
+    note: Cloudflare managed challenge (HTML)
+  - path: /apis.yml
+    status: 403
+    note: Cloudflare managed challenge (HTML)
+  - path: /.well-known/fashionbyu-com-negative-control-7c2e91.json
+    status: 403
+    note: negative control — same 403 JSON as every miss
+  - path: /llms.txt
+    status: 200
+    file: llms/fashionbyu-com-mirror-llms.txt
+    content_type: text/plain; charset=utf-8
+    bytes: 1586
+  - path: /robots.txt
+    status: 200
+    file: well-known/fashionbyu-com-robots.txt
+    content_type: text/plain; charset=utf-8
+    bytes: 1502
+    note: byte-identical to the root host copy
+  - path: /iriz/v1/docs/spec.json
+    status: 200
+    file: openapi/_original/fashionbyu-com-iriz-platform-api-openapi.json
+    note: OpenAPI 3.0.0 — recorded in openapi/
+- host: fashionbyu.com
+  role: registrable domain / Website
+  documents:
+  - path: /.well-known/agent.json
+    status: 200
+    file: a2a/fashionbyu-com-interop-agent-card-fashionbyu-com.json
+    content_type: application/json
+    bytes: 2898
+    note: 'root-host copy of the interop card: two skills, x-iriz.enabled false'
+  - path: /.well-known/agent-card.json
+    status: 403
+    note: '{"ok":false,"error":"feature_disabled","code":"IRIZ_AGENTIC_CHECKOUT"} — application deny'
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/api-catalog.json
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/mcp.json
+    status: 403
+  - path: /.well-known/ucp.json
+    status: 403
+  - path: /.well-known/acp.json
+    status: 403
+  - path: /.well-known/aauth-resource.json
+    status: 403
+  - path: /.well-known/apis.json
+    status: 403
+  - path: /apis.json
+    status: 403
+    note: Cloudflare managed challenge (HTML)
+  - path: /apis.yml
+    status: 403
+    note: Cloudflare managed challenge (HTML)
+  - path: /.well-known/fashionbyu-com-negative-control-7c2e91.json
+    status: 403
+    note: negative control
+  - path: /llms.txt
+    status: 200
+    file: llms/fashionbyu-com-llms.txt
+    content_type: text/plain; charset=utf-8
+    bytes: 3143
+  - path: /robots.txt
+    status: 200
+    file: well-known/fashionbyu-com-robots.txt
+    content_type: text/plain; charset=utf-8
+    bytes: 1502
+  - path: /
+    status: 403
+    note: Cloudflare managed challenge ("Just a moment...", cType managed) — the Website exists but is not readable by a
+      non-browser client
+- host: www.fashionbyu.com
+  role: host advertised by llms.txt and robots.txt
+  documents: []
+  note: NXDOMAIN on 2026-09-19 (Cloudflare NS deb/seth.ns.cloudflare.com) — nothing could be probed; every agent link the
+    provider publishes in llms.txt and robots.txt resolves nowhere

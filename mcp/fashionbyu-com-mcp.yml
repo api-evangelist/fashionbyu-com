@@ -1,0 +1,177 @@
+generated: '2026-09-19'
+method: probed
+status: published
+source: https://mirror.fashionbyu.com/iriz/v1/agent/mcp (POST initialize + tools/list, 2026-09-19); advertised by https://mirror.fashionbyu.com/.well-known/agent-card.json
+  x-commerce.mcp, by llms.txt and by robots.txt
+server:
+  name: iriz-agent-commerce
+  version: 1.0.0
+  protocol_version: '2025-06-18'
+  transport: http
+  transport_detail: streamable-http (POST JSON-RPC; Accept application/json, text/event-stream; responses returned as application/json)
+  url: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
+  legacy_url: https://mirror.fashionbyu.com/iriz/agent/mcp
+  legacy_note: 'The legacy path answers identically but every response carries Deprecation: true and Link: </iriz/v1/agent/mcp>;
+    rel="successor-version". The registrable domain fashionbyu.com returns 404 for both paths; www.fashionbyu.com (the host
+    llms.txt/robots.txt advertise) is NXDOMAIN.'
+  capabilities:
+    tools:
+      listChanged: false
+  instructions: 'Agentic storefront commerce: search catalogs, manage carts, quote and confirm checkout, and track orders.
+    Read tools are public; write tools require a bearer token when IRIZ_AGENT_COMMERCE_TOKEN is configured.'
+  info_document: GET https://mirror.fashionbyu.com/iriz/v1/agent/mcp returns a JSON description of the server (tools, REST
+    route map, write_auth) — 200, application/json
+deployment:
+  mode: remote
+  endpoint: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
+  install: null
+  package: null
+  auth: none
+  auth_note: 'tools/list, initialize and the read tools (search_catalog called live) answer with no credentials. The server
+    instructions and the GET info document say write tools take "Authorization: Bearer <IRIZ_AGENT_COMMERCE_TOKEN> when
+    configured"; the commerce agent card records token_required: false. No OAuth metadata is served on any host (see well-known/).'
+  verified: probed
+auth:
+  methods:
+  - none
+  - bearer (conditional, writes only)
+  bearer:
+    header: 'Authorization: Bearer <token>'
+    applies_to:
+    - create_cart
+    - mutate_cart
+    - quote_cart
+    - confirm_checkout
+    when: only when the operator configures IRIZ_AGENT_COMMERCE_TOKEN
+    issuance: not documented publicly
+tool_count: 9
+tools:
+- name: search_catalog
+  category: catalog
+  description: Search a brand storefront catalog. Returns structured products with price, availability, variants, PDP URLs,
+    and the checkout contract.
+  required:
+  - brand_slug
+  input_properties:
+  - brand_slug
+  - query
+  - limit
+  - offset
+  source_operation: null
+- name: get_product_feed
+  category: catalog
+  description: Get the machine-readable product feed URL (OpenAI/ACP product feed JSON) and llms.txt discovery file for
+    a brand.
+  required:
+  - brand_slug
+  input_properties:
+  - brand_slug
+  - page_origin
+  source_operation: null
+- name: get_policies
+  category: policies
+  description: Get shipping, delivery, returns, refund, privacy, and terms policy page URLs for a brand storefront.
+  required:
+  - brand_slug
+  input_properties:
+  - brand_slug
+  - page_origin
+  source_operation: null
+- name: create_cart
+  category: cart
+  description: Create an agent cart session. Returns a cart_token for subsequent mutations and quotes.
+  required: []
+  input_properties:
+  - brand_slug
+  - items
+  - buyer_email
+  - email
+  source_operation: null
+- name: mutate_cart
+  category: cart
+  description: Add, set, or clear items on an existing cart session.
+  required:
+  - cart_token
+  input_properties:
+  - cart_token
+  - action
+  - items
+  source_operation: null
+- name: get_cart
+  category: cart
+  description: Read a cart session by cart_token.
+  required:
+  - cart_token
+  input_properties:
+  - cart_token
+  source_operation: null
+- name: quote_cart
+  category: checkout
+  description: Quote a cart session — totals, shipping, tax before checkout.
+  required:
+  - cart_token
+  input_properties:
+  - cart_token
+  - shipping
+  source_operation: null
+- name: confirm_checkout
+  category: checkout
+  description: Confirm checkout for a quoted cart. Creates an order when the quote matches.
+  required:
+  - cart_token
+  input_properties:
+  - cart_token
+  - quote_id
+  - payment
+  - buyer_email
+  - email
+  source_operation: null
+- name: get_order
+  category: orders
+  description: Track an order by order_id.
+  required:
+  - order_id
+  input_properties:
+  - order_id
+  source_operation: null
+tools_list_file: mcp/fashionbyu-com-mcp-tools-list.json
+initialize_file: mcp/fashionbyu-com-mcp-initialize.json
+rest_route_map:
+  catalog: GET /iriz/v1/agent/catalog?slug=
+  cart_session: POST /iriz/v1/agent/cart/session
+  cart_get: GET /iriz/v1/agent/cart?cart_token=
+  cart_items: POST /iriz/v1/agent/cart/items
+  cart_quote: POST /iriz/v1/agent/cart/quote
+  checkout_confirm: POST /iriz/v1/agent/checkout/confirm
+  checkout_order: GET /iriz/v1/agent/checkout/order?order_id=
+  status: GET /iriz/agent-commerce/status
+  legacy_catalog: GET /iriz/agent/catalog?slug=
+  search: GET /iriz/agent/search?slug=&q=
+  brands: GET /iriz/agent/brands
+  policies: GET /iriz/agent/policies?slug=
+  mcp: 'POST /iriz/agent/mcp (JSON-RPC: tools/list, tools/call)'
+  agent_card: GET /.well-known/agent-card.json
+  product_feed: GET /brand/<slug>/feed.json
+  traffic: GET /iriz/agent/traffic?days= (boss)
+x-evidence:
+- url: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
+  method: POST tools/list
+  http_status: 200
+  content_type: application/json
+  note: 'nine tools with inputSchema; headers iriz-api-version: v1, iriz-api-versioned-path: /iriz/v1/agent/mcp, iriz-contract-validation:
+    failed ($.ok: missing required field — the server validates its own responses against an internal contract and reports
+    the miss in a header)'
+- url: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
+  method: POST initialize
+  http_status: 200
+  note: protocolVersion 2025-06-18, serverInfo iriz-agent-commerce 1.0.0
+- url: https://mirror.fashionbyu.com/iriz/agent/mcp
+  method: 'POST tools/call search_catalog {brand_slug: bwet, limit: 2}'
+  http_status: 200
+  note: returned schema agent-commerce-s120-v1, two BWET Swimwear products with variants, agent_actions and schema.org Product
+    JSON-LD — a read tool, no state changed
+- url: https://fashionbyu.com/iriz/agent/mcp
+  http_status: 404
+- url: https://mirror.fashionbyu.com/.well-known/mcp.json
+  http_status: 403
+  note: '{"error":"Forbidden_4"} — not served'

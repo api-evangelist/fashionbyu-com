@@ -1,0 +1,74 @@
+generated: '2026-09-19'
+method: derived
+format: custom-json
+source: 'Derived from the 4xx/5xx responses declared in openapi/fashionbyu-com-iriz-platform-api-openapi.yml (108 operations:
+  401 on 98, 400 on 96, 500 on 92, 404 on 4, 403 on 2, 409 on 2 — description strings only, no response schemas) and enriched
+  with the envelopes observed live on 2026-09-19. Not RFC 9457: bodies are {ok:false, error, code?} rather than application/problem+json.'
+envelope:
+  media_type: application/json
+  fields:
+    ok: always false on error
+    error: short slug or phrase (Unauthorized, peer_credentials_required, feature_disabled, endpoint_not_found, Forbidden_4)
+    code: UPPER_SNAKE machine code when present (UNAUTHORIZED, IRIZ_AGENTIC_CHECKOUT)
+    auth_level: 'the level that would have been required: standard | boss'
+    message: human text (404 only, observed)
+    hint: suggested alternative routes (404 only, observed)
+    documentation: pointer string (404 only, observed) — "/iriz/openapi or Boss Dashboard API docs"; /iriz/openapi itself
+      returns 403
+problems:
+- status: 400
+  title: Bad Request / Invalid request / Invalid cart
+  declared_on: 96
+  source_operation: 'openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/v1/agent/cart/session (Invalid request),
+    #POST /iriz/v1/agent/cart/quote (Invalid cart)'
+  remediation: Validate cart_token / items against the MCP inputSchema before calling; the OpenAPI carries no request schema.
+- status: 401
+  title: Unauthorized
+  code: UNAUTHORIZED
+  declared_on: 98
+  observed: '{"ok":false,"error":"Unauthorized","code":"UNAUTHORIZED","auth_level":"standard"} on GET /iriz/status, /iriz/version,
+    /iriz/interop/status; auth_level "boss" on /iriz/agent-commerce/status'
+  remediation: Supply the gateway key (query p) or bearer JWT at the auth_level named; there is no public credential issuance
+    for standard/boss.
+- status: 401
+  title: Peer credentials required
+  code: null
+  observed: '{"ok":false,"error":"peer_credentials_required"} on POST /iriz/interop/tasks'
+  source_operation: a2a interop task endpoint (not in the OpenAPI)
+  remediation: Register as a peer and sign with x-iriz-peer-sig (HMAC-SHA256) + x-iriz-peer-id/ts/nonce, or obtain a bearer
+    from POST /iriz/interop/token.
+- status: 401
+  title: Agent token required when configured
+  declared_on: 1
+  source_operation: openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/v1/agent/cart/session
+  remediation: 'Send Authorization: Bearer <IRIZ_AGENT_COMMERCE_TOKEN> on write tools when the operator has configured one.'
+- status: 403
+  title: Feature disabled
+  code: IRIZ_AGENTIC_CHECKOUT
+  declared_on: 2
+  observed: '{"ok":false,"error":"feature_disabled","code":"IRIZ_AGENTIC_CHECKOUT"} on GET https://fashionbyu.com/.well-known/agent-card.json'
+  source_operation: openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/v1/agent/catalog (Feature disabled)
+  remediation: Agentic checkout is a per-host feature flag; use mirror.fashionbyu.com where it is enabled.
+- status: 403
+  title: Forbidden_4
+  observed: '{"error":"Forbidden_4"} for every unserved /.well-known/*, /iriz/openapi, /iriz/sitemap.xml path'
+  remediation: The path is not served; not an auth failure.
+- status: 404
+  title: Brand not found
+  declared_on: 4
+  source_operation: openapi/fashionbyu-com-iriz-platform-api-openapi.yml#GET /iriz/v1/agent/catalog
+  remediation: Use a slug from GET /iriz/agent/brands.
+- status: 404
+  title: Endpoint not found
+  observed: '{"ok":false,"error":"endpoint_not_found","message":"No IRIZ handler is registered for <path>",...} on GET /iriz/interop/*'
+  remediation: The route exists only for another method (POST) or not at all; the hint lists /iriz/status, /iriz/health,
+    /iriz/chat.
+- status: 409
+  title: Quote mismatch
+  declared_on: 2
+  source_operation: openapi/fashionbyu-com-iriz-platform-api-openapi.yml#POST /iriz/v1/agent/checkout/confirm
+  remediation: Re-run quote_cart and confirm with the fresh quote_id; the cart changed since the quote.
+- status: 500
+  title: Internal Server Error
+  declared_on: 92
+  remediation: Retry with backoff; no request-id header is exposed for support.

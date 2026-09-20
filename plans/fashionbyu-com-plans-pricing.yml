@@ -1,0 +1,19 @@
+generated: '2026-09-19'
+method: searched
+plan_count: 0
+plans: []
+source: https://fashionbyu.com/ (403 Cloudflare managed challenge), https://mirror.fashionbyu.com/ (403), the OpenAPI, agent
+  cards, llms.txt and robots.txt — none names a pricing page, plan, quota or API tier
+note: 'IRIZ Platform publishes no API plans or pricing. The agent-commerce surface (catalog, carts, checkout) is open with
+  no key and no stated quota; the platform-operations routes are gated at auth_level standard/boss with no public issuance.
+  The only monetary values published are product prices in the ACP feeds (GBP) and catalog (USD price_cents) and the interop
+  card''s ap2_max_usd_default: 0. Nothing here is a plan; plan_count 0 is the finding.'
+evidence:
+- url: https://fashionbyu.com/
+  status: 403
+- url: https://mirror.fashionbyu.com/iriz/docs
+  status: 200
+  note: Swagger UI shell; no pricing
+- url: https://fashionbyu.com/llms.txt
+  status: 200
+  note: no pricing link

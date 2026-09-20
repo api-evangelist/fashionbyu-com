@@ -1,0 +1,79 @@
+generated: '2026-09-19'
+method: searched
+source: openapi/fashionbyu-com-iriz-platform-api-openapi.yml (securitySchemes) upgraded with the live 401 bodies observed
+  on 2026-09-19, the MCP server instructions (initialize) and GET /iriz/v1/agent/mcp write_auth, and the securitySchemes
+  of both A2A agent cards
+summary:
+  types:
+  - apiKey
+  - http
+  - none
+  - hmac-signature
+  - http-message-signature
+  api_key_in:
+  - query
+  public_surface: Agent-commerce read routes and MCP tools/list, initialize and read tools answer with no credentials
+  auth_levels:
+    standard: GET /iriz/status, /iriz/version, /iriz/interop/status, /iriz/interop/a2ui/catalog -> 401 {"code":"UNAUTHORIZED","auth_level":"standard"}
+    boss: GET /iriz/agent-commerce/status -> 401 auth_level boss; robots.txt disallows /boss/
+    issuance: not documented publicly on any readable page
+schemes:
+- name: apiKey
+  type: apiKey
+  in: query
+  parameter: p
+  description: Platform gateway password or token
+  sources:
+  - openapi/fashionbyu-com-iriz-platform-api-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/fashionbyu-com-iriz-platform-api-openapi.yml
+- name: agent-commerce-bearer
+  type: http
+  scheme: bearer
+  applies_to:
+  - MCP create_cart, mutate_cart, quote_cart, confirm_checkout
+  - POST /iriz/v1/agent/cart/session (401 "Agent token required when configured")
+  conditional: true
+  description: '"Authorization: Bearer <IRIZ_AGENT_COMMERCE_TOKEN> when configured" — the commerce agent card records token_required:
+    false and the read tools were called live without a token'
+  sources:
+  - mcp/fashionbyu-com-mcp-initialize.json
+  - a2a/fashionbyu-com-agent-card.json
+- name: peerHmac
+  type: apiKey
+  in: header
+  parameter: x-iriz-peer-sig
+  applies_to:
+  - 'A2A interop: POST /iriz/interop/tasks (401 peer_credentials_required without it)'
+  description: HMAC-SHA256(peer_secret, "<peer>.<ts>.<nonce>.<sha256(body)>") sent with x-iriz-peer-id, x-iriz-peer-ts,
+    x-iriz-peer-nonce headers
+  sources:
+  - a2a/fashionbyu-com-interop-agent-card.json
+- name: interop-bearer
+  type: http
+  scheme: bearer
+  applies_to:
+  - A2A interop
+  description: Short-lived token from POST /iriz/interop/token { peer_id, secret } (GET on that path is 404 endpoint_not_found;
+    POST not attempted — requires a registered peer secret)
+  sources:
+  - a2a/fashionbyu-com-interop-agent-card.json
+- name: webBotAuth
+  type: http
+  scheme: signature
+  applies_to:
+  - A2A interop
+  description: RFC 9421 HTTP message signature; verified signatures raise trust tier (declared, not verifiable anonymously)
+  sources:
+  - a2a/fashionbyu-com-interop-agent-card.json
+docs: https://mirror.fashionbyu.com/iriz/docs
+oauth:
+  present: false
+  evidence: no oauth2/openIdConnect scheme in the spec; /.well-known/oauth-authorization-server, oauth-protected-resource
+    and openid-configuration are 403 on fashionbyu.com and on the MCP host mirror.fashionbyu.com
+note: The OpenAPI declares two schemes but applies neither to any operation (security is absent on 107 of 108 operations),
+  so the spec cannot say which routes need which credential; the applicability above is what the live server answered.

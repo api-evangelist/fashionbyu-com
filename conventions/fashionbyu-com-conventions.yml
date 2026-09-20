@@ -1,0 +1,116 @@
+generated: '2026-09-19'
+method: searched
+source: Observed live on 2026-09-19 against https://mirror.fashionbyu.com (response headers and error bodies of /iriz/v1/agent/mcp,
+  /iriz/agent/catalog, /iriz/health, /iriz/versions, /iriz/status, /iriz/interop/tasks), the versioning page https://mirror.fashionbyu.com/iriz/docs/versioning
+  (text/markdown), the OpenAPI at /iriz/v1/docs/spec.json, and the two agent cards. Nothing here is inferred from a page
+  we could not read.
+description: 'Cross-cutting runtime semantics of the IRIZ Platform API and its agent-commerce MCP surface: auth style, versioning,
+  deprecation signalling, error envelope, and the absence of idempotency, rate-limit and reversibility mechanisms.'
+base_url: https://mirror.fashionbyu.com/iriz/v1
+api_style: REST over HTTPS, JSON responses; MCP JSON-RPC over streamable-http at /iriz/v1/agent/mcp
+authentication:
+  scheme: apiKey in query parameter p ("Platform gateway password or token") and bearer JWT per the OpenAPI; the agent-commerce
+    read surface is unauthenticated; interop (A2A) peers use an HMAC-SHA256 header signature, a short-lived bearer from
+    POST /iriz/interop/token, or an RFC 9421 HTTP message signature
+  auth_levels_observed:
+  - standard
+  - boss
+  detail: authentication/fashionbyu-com-authentication.yml
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  scope: []
+  note: 'No Idempotency-Key or equivalent is documented in the OpenAPI, the MCP tool schemas or the agent cards. The nearest
+    guard is quote/confirm matching: confirm_checkout takes a quote_id and the OpenAPI documents 409 "Quote mismatch", so
+    a stale or altered quote is rejected — but a repeated confirm with the same quote_id is not documented as safe. mutate_cart
+    has action set (replace) which is idempotent by shape; add is not.'
+dry_run_mode:
+  supported: false
+  coverage: none
+  note: quote_cart (POST /iriz/v1/agent/cart/quote, "Quote cart with inventory hold") prices a cart before checkout, which
+    is a rehearsal of totals but places an inventory hold — it is not a side-effect-free dry run.
+reversibility:
+  grade: none
+  coverage: none
+  write_surface:
+  - create_cart
+  - mutate_cart
+  - quote_cart
+  - confirm_checkout (POST /iriz/v1/agent/checkout/confirm — creates an order, "demo or Stripe")
+  reversal_operations: []
+  note: No cancel, refund, void or order-mutation operation exists in the OpenAPI, the MCP tool list or the route map; get_order
+    is read-only. The platform publishes per-brand returns and refund policy pages (e.g. https://mirror.fashionbyu.com/brand/bwet/policies/returns
+    and /policies/refund, named in the feed as return_policy and by get_policies) — those are consumer policies rendered
+    as HTML behind the Cloudflare challenge, which we could not read, so no window is recorded. An agent that confirms a
+    checkout has no API path to take it back.
+pagination:
+  style: offset
+  request_params:
+    limit: integer, default 24, max 48 (search_catalog); OpenAPI declares limit/offset on GET /iriz/v1/agent/catalog
+    offset: integer
+  response_fields:
+    product_count: items in this page
+    offset: echo
+    limit: echo
+  note: No has_more/total field observed in the catalog response
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  request_id_header: null
+  note: 'No request-id header observed; responses carry cf-ray (Cloudflare) and the platform''s own iriz-api-version, iriz-api-versioned-path,
+    iriz-contract-validation and iriz-contract-errors headers (the server validates its own responses against an internal
+    contract and reports failures in-band, e.g. "iriz-contract-errors: $.ok: missing required field" on the MCP JSON-RPC
+    envelope).'
+versioning:
+  scheme: uri-path
+  current: v1
+  mechanism: canonical prefix /iriz/v1/; legacy /iriz/{endpoint} remains available and is marked deprecated
+  catalog_endpoint: GET /iriz/versions -> {"current":"v1","supported":["v1"],"prefix":"/iriz/v1","openapi":"/iriz/v1/docs/spec.json"}
+  worker_version: GET /iriz/v1/version (401 standard) — deployed bundle semver; /iriz/health reports version 5.1.2829 publicly
+  docs: https://mirror.fashionbyu.com/iriz/docs/versioning
+  detail: lifecycle/fashionbyu-com-lifecycle.yml
+deprecation_signalling:
+  header: 'Deprecation: true'
+  successor: 'Link: </iriz/v1/agent/mcp>; rel="successor-version"'
+  sunset_header: false
+  observed_on: POST https://mirror.fashionbyu.com/iriz/agent/mcp (2026-09-19)
+  note: 'Boolean Deprecation header per the versioning page ("responses may include Deprecation: true and a Link successor
+    header"); no Sunset date (RFC 8594) is sent.'
+error_envelope:
+  media_type: application/json
+  rfc9457: false
+  shape: '{ "ok": false, "error": "<slug>", "code"?: "<UPPER_SNAKE>", "auth_level"?: "standard|boss", "message"?, "path"?,
+    "hint"?, "documentation"?, "version"? }'
+  observed:
+  - status: 401
+    body: '{"ok":false,"error":"Unauthorized","code":"UNAUTHORIZED","auth_level":"standard"}'
+  - status: 401
+    body: '{"ok":false,"error":"peer_credentials_required"}'
+  - status: 403
+    body: '{"ok":false,"error":"feature_disabled","code":"IRIZ_AGENTIC_CHECKOUT"}'
+  - status: 403
+    body: '{"error":"Forbidden_4"}'
+  - status: 404
+    body: '{"ok":false,"error":"endpoint_not_found","message":"No IRIZ handler is registered for /iriz/interop/tasks","path":"/iriz/interop/tasks","hint":"Use
+      GET /iriz/status, GET /iriz/health, or POST /iriz/chat for supported operations.","documentation":"/iriz/openapi or
+      Boss Dashboard API docs","version":"5.1.2829"}'
+  success_envelope: '{ "ok": true, ... } — catalog responses add "schema": "agent-commerce-s120-v1"'
+  detail: errors/fashionbyu-com-problem-types.yml
+rate_limits:
+  documented: false
+  signal_status: null
+  headers: []
+  note: No RateLimit-*, X-RateLimit-* or Retry-After header on any response observed; nothing documented. See rate-limits/fashionbyu-com-rate-limits.yml.
+content_negotiation:
+  mcp: 'POST with Accept: application/json, text/event-stream; server answered application/json'
+  feeds: /brand/<slug>/feed.json application/json; /brand/<slug>/llms.txt text/markdown; /iriz/docs/versioning text/markdown
+cross_links:
+  errors: errors/fashionbyu-com-problem-types.yml
+  lifecycle: lifecycle/fashionbyu-com-lifecycle.yml
+  authentication: authentication/fashionbyu-com-authentication.yml
+  rate_limits: rate-limits/fashionbyu-com-rate-limits.yml
+  mcp: mcp/fashionbyu-com-mcp.yml
+  crosswalk: mcp/fashionbyu-com-tool-crosswalk.yml

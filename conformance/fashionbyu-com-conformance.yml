@@ -1,0 +1,84 @@
+generated: '2026-09-19'
+method: searched
+source: 'Live probes of https://mirror.fashionbyu.com on 2026-09-19 (MCP initialize/tools/list, agent cards, product feed,
+  catalog JSON-LD, response headers) and the OpenAPI at /iriz/v1/docs/spec.json. Every conforms: true row names the exact
+  document or response that carries the signature.'
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: 'https://mirror.fashionbyu.com/iriz/v1/docs/spec.json — openapi: 3.0.0, 108 paths (openapi/_original/fashionbyu-com-iriz-platform-api-openapi.json)'
+- id: mcp
+  conforms: true
+  version: '2025-06-18'
+  evidence: POST https://mirror.fashionbyu.com/iriz/v1/agent/mcp initialize -> {"protocolVersion":"2025-06-18","serverInfo":{"name":"iriz-agent-commerce","version":"1.0.0"}};
+    tools/list returns nine tools with JSON Schema inputSchema (mcp/fashionbyu-com-mcp-tools-list.json)
+- id: a2a-agent-card
+  conforms: false
+  grade: flavored
+  evidence: Both cards use protocolVersions[] instead of the protocolVersion string A2A 1.0.0 requires (a2a/fashionbyu-com-a2a.yml,
+    a2a/fashionbyu-com-interop-a2a.yml); capabilities objects and skills arrays are well-formed
+- id: openai-product-feed-acp
+  conforms: true
+  domain_standard: true
+  evidence: https://mirror.fashionbyu.com/brand/bwet/feed.json declares "feed_version":"1","spec":"openai-product-feed/acp-compatible"
+    and carries the ACP feed fields (id, title, link, price, availability, seller_name, seller_url, seller_privacy_policy,
+    seller_tos, return_policy, enable_search, enable_checkout, condition); the commerce agent card lists protocols [acp-compatible,
+    mcp, a2a]
+  note: 'Domain-standard signature for agentic commerce: the contract declares the OpenAI/ACP product-feed shape in its
+    own body. The ACP checkout endpoints themselves (/checkout_sessions) are NOT published — checkout goes through the platform''s
+    own /iriz/v1/agent/* routes.'
+- id: schema-org-product-json-ld
+  conforms: true
+  evidence: search_catalog / GET /iriz/v1/agent/catalog return a json_ld string per product with @context https://schema.org,
+    @type Product, Offer (priceCurrency, availability InStock, itemCondition), MerchantReturnPolicy
+- id: llms-txt
+  conforms: true
+  evidence: 'https://fashionbyu.com/llms.txt and https://mirror.fashionbyu.com/llms.txt (H1, blockquote, ## link sections)
+    plus per-brand /brand/<slug>/llms.txt; all links target www.fashionbyu.com, which is NXDOMAIN'
+- id: robots-txt-agent-allow
+  conforms: true
+  evidence: 'https://fashionbyu.com/robots.txt names 26 AI crawler user-agents (GPTBot, ClaudeBot, PerplexityBot, Bytespider,
+    ...) with Allow: / and disallows only admin/checkout/cart paths'
+- id: deprecation-header
+  conforms: true
+  evidence: 'Deprecation: true + Link rel="successor-version" on POST /iriz/agent/mcp; documented at https://mirror.fashionbyu.com/iriz/docs/versioning'
+  note: Boolean form, not the RFC 9745 @unix-time date; no Sunset (RFC 8594) header
+- id: rfc9421-http-message-signatures
+  conforms: null
+  evidence: 'Declared only: the interop agent card securitySchemes.webBotAuth = {type: http, scheme: signature, description:
+    "RFC 9421 HTTP message signature; verified signatures raise trust tier"}. Not verifiable without peer credentials.'
+- id: a2ui
+  conforms: null
+  evidence: 'Declared only: interop card defaultOutputModes includes application/vnd.a2ui+json and x-iriz.a2ui_catalog;
+    the catalog endpoint is 401 auth_level standard'
+- id: ap2
+  conforms: null
+  evidence: 'Declared only: x-iriz.ap2_verify endpoint, ap2_schema ap2-v0.2, ap2_max_usd_default 0 — endpoint GET is 404
+    endpoint_not_found; not exercised'
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme in the OpenAPI; /.well-known/oauth-authorization-server and /oauth-protected-resource
+    are 403 on every host including the MCP host
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration 403 on both hosts
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Error bodies are {ok:false, error, code} application/json — errors/fashionbyu-com-problem-types.yml
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt 403 on both hosts
+- id: rfc9728-protected-resource-metadata
+  conforms: false
+  evidence: /.well-known/oauth-protected-resource 403 on mirror.fashionbyu.com (the MCP host) and fashionbyu.com
+- id: idempotency-key
+  conforms: false
+  evidence: No idempotency mechanism documented — conventions/fashionbyu-com-conventions.yml
+- id: pagination-offset
+  conforms: true
+  evidence: GET /iriz/v1/agent/catalog declares limit/offset query parameters; search_catalog inputSchema limit (default
+    24, max 48) + offset
+compliance_program: null
+note: 'No certifications (SOC 2, ISO 27001, PCI DSS) or trust center are published (probe-security-programs.py: vdp=none
+  trust=none), so no Compliance pointer is emitted. confirm_checkout mentions Stripe as a payment path, which would put
+  card handling with Stripe rather than the platform, but nothing is published that states this.'

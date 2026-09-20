@@ -1,0 +1,91 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for IRIZ Platform API
+  version: 1.0.0
+  x-generated: '2026-09-19'
+  x-method: generated
+  x-source: Generated from openapi/fashionbyu-com-iriz-platform-api-openapi.yml and the live probes recorded in mcp/, conventions/
+    and lifecycle/. Adds what the auto-generated spec omits (servers, tags, operationIds for the public agent-commerce slice,
+    security applicability, links to the richer MCP inputSchema) without touching the harvested original.
+extends: openapi/fashionbyu-com-iriz-platform-api-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: fashionbyu-com
+    x-apievangelist-rating-artifacts: kin/
+    contact:
+      name: IRIZ Platform
+      url: https://mirror.fashionbyu.com
+- target: $
+  update:
+    servers:
+    - url: https://mirror.fashionbyu.com
+      description: Serves the spec and every path; fashionbyu.com 404s the /iriz routes
+    tags:
+    - name: Agent Commerce
+      description: Public, unauthenticated shopping-agent surface (mirrored by the MCP server at /iriz/v1/agent/mcp)
+    - name: Versioning
+      description: Version catalog and health
+    - name: Platform Operations
+      description: Deploy, QA, self-healing and boss-dashboard routes — auth_level standard|boss
+    - name: Legacy
+      description: 'Un-versioned twins marked deprecated; answer with Deprecation: true'
+- target: $.paths['/iriz/v1/agent/catalog'].get
+  update:
+    operationId: getAgentCatalog
+    tags:
+    - Agent Commerce
+    x-mcp-tool: search_catalog
+    x-agentic-access:
+      action-class: read
+    description: 'Live on 2026-09-19: returns {ok, schema: agent-commerce-s120-v1, brand_slug, currency, product_count,
+      products[], checkout_contract, agent_actions}.'
+- target: $.paths['/iriz/v1/agent/cart/session'].post
+  update:
+    operationId: createAgentCartSession
+    tags:
+    - Agent Commerce
+    x-mcp-tool: create_cart
+    x-request-schema-from: mcp/fashionbyu-com-mcp-tools-list.json#create_cart.inputSchema
+- target: $.paths['/iriz/v1/agent/cart/quote'].post
+  update:
+    operationId: quoteAgentCart
+    tags:
+    - Agent Commerce
+    x-mcp-tool: quote_cart
+    x-request-schema-from: mcp/fashionbyu-com-mcp-tools-list.json#quote_cart.inputSchema
+    x-side-effect: places an inventory hold
+- target: $.paths['/iriz/v1/agent/checkout/confirm'].post
+  update:
+    operationId: confirmAgentCheckout
+    tags:
+    - Agent Commerce
+    x-mcp-tool: confirm_checkout
+    x-request-schema-from: mcp/fashionbyu-com-mcp-tools-list.json#confirm_checkout.inputSchema
+    x-reversibility: none — no cancel/refund operation is published
+    x-agentic-access:
+      action-class: acting
+      consequence: physical
+- target: $.paths['/iriz/v1/agent-commerce/status'].get
+  update:
+    operationId: getAgentCommerceStatus
+    tags:
+    - Agent Commerce
+    security:
+    - bearerAuth: []
+    x-observed: 401 auth_level boss on 2026-09-19
+- target: $.paths['/iriz/v1/version'].get
+  update:
+    operationId: getWorkerVersion
+    tags:
+    - Versioning
+    x-observed: 401 auth_level standard on 2026-09-19
+- target: $.paths['/health'].get
+  update:
+    operationId: getHealth
+    tags:
+    - Versioning
+    x-observed: GET /iriz/health 200 {"ok":true,"healthy":true,"version":"5.1.2829"} on 2026-09-19
+- target: $.paths[?(@.get.deprecated == true || @.post.deprecated == true)]
+  update:
+    x-deprecation-signal: 'Deprecation: true + Link rel=successor-version (https://mirror.fashionbyu.com/iriz/docs/versioning)'

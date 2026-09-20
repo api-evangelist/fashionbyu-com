@@ -1,0 +1,32 @@
+# fashionbyu.com — AI-agent commerce storefront
+
+> Multi-brand fashion storefront with machine-readable catalogs, product
+> feeds, policy pages, and agent commerce tools (MCP / A2A). AI shopping
+> and answer agents are explicitly welcome worldwide, including China.
+
+## Agent endpoints
+- [Agent card (A2A)](https://www.fashionbyu.com/.well-known/agent-card.json)
+- [MCP endpoint](https://www.fashionbyu.com/iriz/agent/mcp) — JSON-RPC tools: search_catalog, create_cart, quote_cart, confirm_checkout, get_order
+- [Brand index](https://www.fashionbyu.com/iriz/agent/brands)
+- [Catalog API](https://www.fashionbyu.com/iriz/agent/catalog?slug=<brand>)
+- [Product search](https://www.fashionbyu.com/iriz/agent/search?slug=<brand>&q=<query>)
+- [Policies API](https://www.fashionbyu.com/iriz/agent/policies?slug=<brand>)
+- [Robots](https://www.fashionbyu.com/robots.txt)
+
+## Brand storefronts
+- [Seafolly](https://www.fashionbyu.com/brand/agent-provocateur-luxury-lingerie-swimwear-bridal-lingerie-h) — [llms.txt](https://www.fashionbyu.com/brand/agent-provocateur-luxury-lingerie-swimwear-bridal-lingerie-h/llms.txt) · [feed](https://www.fashionbyu.com/brand/agent-provocateur-luxury-lingerie-swimwear-bridal-lingerie-h/feed.json)
+- [BWET Swimwear](https://www.fashionbyu.com/brand/bwet) — [llms.txt](https://www.fashionbyu.com/brand/bwet/llms.txt) · [feed](https://www.fashionbyu.com/brand/bwet/feed.json)
+- [Kitri Studio](https://www.fashionbyu.com/brand/kitristudio) — [llms.txt](https://www.fashionbyu.com/brand/kitristudio/llms.txt) · [feed](https://www.fashionbyu.com/brand/kitristudio/feed.json)
+- [Lisou London](https://www.fashionbyu.com/brand/lisou-london) — [llms.txt](https://www.fashionbyu.com/brand/lisou-london/llms.txt) · [feed](https://www.fashionbyu.com/brand/lisou-london/feed.json)
+- [Me+Em](https://www.fashionbyu.com/brand/me-em-london) — [llms.txt](https://www.fashionbyu.com/brand/me-em-london/llms.txt) · [feed](https://www.fashionbyu.com/brand/me-em-london/feed.json)
+- [Réalisation Par](https://www.fashionbyu.com/brand/realisation-par) — [llms.txt](https://www.fashionbyu.com/brand/realisation-par/llms.txt) · [feed](https://www.fashionbyu.com/brand/realisation-par/feed.json)
+- [Seafolly](https://www.fashionbyu.com/brand/testbrand) — [llms.txt](https://www.fashionbyu.com/brand/testbrand/llms.txt) · [feed](https://www.fashionbyu.com/brand/testbrand/feed.json)
+- [Video Drop](https://www.fashionbyu.com/brand/v2s_1778215506347) — [llms.txt](https://www.fashionbyu.com/brand/v2s_1778215506347/llms.txt) · [feed](https://www.fashionbyu.com/brand/v2s_1778215506347/feed.json)
+
+## 中文 (Chinese)
+> 本站为 AI 购物代理提供结构化商品数据：商品 Feed（JSON）、目录搜索 API、
+> 政策页面与 MCP 工具端点。欢迎所有市场的 AI 代理抓取与引用本站内容，包括中国市场。
+- [品牌索引](https://www.fashionbyu.com/iriz/agent/brands)
+- [目录 API](https://www.fashionbyu.com/iriz/agent/catalog?slug=<brand>)
+- [MCP 端点](https://www.fashionbyu.com/iriz/agent/mcp)
+- [代理卡片 (A2A)](https://www.fashionbyu.com/.well-known/agent-card.json)

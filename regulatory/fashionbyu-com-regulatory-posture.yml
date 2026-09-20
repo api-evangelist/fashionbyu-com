@@ -1,0 +1,66 @@
+generated: '2026-09-19'
+method: searched
+probe: true
+source: Artifacts harvested this run (well-known/, security/, lifecycle/, conformance/, the agent cards, the product feed)
+  plus conventional-path probes on https://mirror.fashionbyu.com and https://fashionbyu.com on 2026-09-19
+signals: {}
+note: No horizontal-regulatory evidence could be verified. Every HTML page on both hosts — /, /privacy, /security, /accessibility,
+  /legal/subprocessors, /legal/dpa — answers with a Cloudflare managed challenge (HTTP 403, "Just a moment..."), so the
+  pages could not be read and no substance can be recorded; this is our wall, not proof of absence. The JSON surfaces show
+  only that per-brand privacy, terms and returns policy pages EXIST (the ACP feed carries seller_privacy_policy, seller_tos
+  and return_policy URLs such as https://mirror.fashionbyu.com/brand/bwet/policies/privacy, and get_policies lists shipping/delivery/returns/refund/privacy/terms/contact
+  per brand) — their contents are behind the same challenge. The versioning page states legacy paths "remain available"
+  with no period, which is not a support-lifetime commitment. No SBOM, accessibility conformance, subprocessor list, DPA,
+  DSR endpoint, transparency report, data-residency page, AI-transparency page or GPC statement was found. An empty signals
+  map is the measurement.
+probed_absent:
+- signal: accessibility_conformance
+  urls:
+  - url: https://mirror.fashionbyu.com/accessibility
+    status: 403
+    note: Cloudflare managed challenge
+  - url: https://fashionbyu.com/accessibility
+    status: 403
+    note: Cloudflare managed challenge
+- signal: subprocessors
+  urls:
+  - url: https://mirror.fashionbyu.com/legal/subprocessors
+    status: 403
+    note: Cloudflare managed challenge
+  - url: https://fashionbyu.com/legal/subprocessors
+    status: 403
+    note: Cloudflare managed challenge
+- signal: incident_notification
+  urls:
+  - url: https://mirror.fashionbyu.com/legal/dpa
+    status: 403
+    note: Cloudflare managed challenge
+  - url: https://fashionbyu.com/legal/dpa
+    status: 403
+    note: Cloudflare managed challenge
+- signal: data_subject_request
+  urls:
+  - url: https://mirror.fashionbyu.com/privacy
+    status: 403
+    note: Cloudflare managed challenge
+  - url: https://fashionbyu.com/privacy
+    status: 403
+    note: Cloudflare managed challenge
+- signal: sbom
+  urls:
+  - url: https://mirror.fashionbyu.com/security
+    status: 403
+    note: Cloudflare managed challenge
+  - url: https://mirror.fashionbyu.com/.well-known/security.txt
+    status: 403
+    note: '{"error":"Forbidden_4"} — not served'
+- signal: support_lifetime
+  urls:
+  - url: https://mirror.fashionbyu.com/iriz/docs/versioning
+    status: 200
+    note: read; states legacy paths "remain available" with no stated period — not recorded as a commitment
+- signal: global_privacy_control
+  urls:
+  - url: https://fashionbyu.com/privacy
+    status: 403
+    note: no published statement readable; no header probe performed by rule

@@ -1,0 +1,14 @@
+generated: '2026-09-19'
+method: probed
+limit_count: 0
+limits: []
+source: Response headers observed live on 2026-09-19 on https://mirror.fashionbyu.com/iriz/v1/agent/mcp (POST tools/list,
+  initialize, tools/call search_catalog), GET /iriz/agent/catalog, /iriz/agent/search, /iriz/agent/brands, /iriz/health,
+  /iriz/versions; plus the OpenAPI (no 429 response is declared on any of the 108 operations) and the versioning page
+headers_observed: []
+exhaustion_status: null
+note: 'No rate limit is documented anywhere the provider publishes, no RateLimit-*, X-RateLimit-* or Retry-After header
+  appears on any response, and no operation declares a 429. The headers that ARE returned are Cloudflare''s (cf-ray, server:
+  cloudflare, strict-transport-security max-age=86400) and the platform''s own iriz-api-version / iriz-api-versioned-path
+  / iriz-contract-validation / iriz-contract-errors. search_catalog caps limit at 48 per call (inputSchema), which is a
+  page size, not a rate limit. limit_count 0 is the finding.'
