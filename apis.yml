@@ -25,6 +25,20 @@ modified: '2026-09-19'
 tags:
 - Company
 - Fashion
+- E-Commerce
+- Agentic Commerce
+- Storefront
+- Product Feeds
+- MCP
+- A2A
+- AI Agents
+- Checkout
+- Cart
+- Order
+- Cloudflare Workers
+tags_raw:
+- Company
+- Fashion
 - Ecommerce
 - Agentic Commerce
 - Storefront
@@ -50,6 +64,13 @@ apis:
   humanURL: https://mirror.fashionbyu.com/iriz/docs
   baseURL: https://mirror.fashionbyu.com/iriz/v1
   tags:
+  - E-Commerce
+  - Agentic Commerce
+  - Catalog
+  - Cart
+  - Checkout
+  - Platform Operations
+  tags_raw:
   - Ecommerce
   - Agentic Commerce
   - Catalog
@@ -91,6 +112,12 @@ apis:
   humanURL: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
   baseURL: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
   tags:
+  - MCP
+  - Agentic Commerce
+  - Cart
+  - Checkout
+  - Order
+  tags_raw:
   - MCP
   - Agentic Commerce
   - Carts
