@@ -1,0 +1,1010 @@
+openapi: 3.2.0
+info:
+  title: Platform Iriz API
+  version: v4.10.829+api-v1
+  description: 'Auto-generated OpenAPI specification for IRIZ endpoints. This spec is auto-validated during the CI/CD pipeline.
+
+
+    ## API versioning
+
+    Canonical base path: `/iriz/v1/`.
+
+    Legacy `/iriz/` paths remain available but are deprecated in this spec.
+
+    See GET /iriz/versions and docs/API_VERSIONING.md.'
+tags:
+- name: Iriz
+paths:
+  /iriz/v1/chat/stream:
+    get:
+      summary: IRIZ GET /iriz/chat/stream (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1ChatStream
+      x-operation-id-source: derived
+  /iriz/v1/deploy-monitor:
+    get:
+      summary: IRIZ GET /iriz/deploy-monitor (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1DeployMonitor
+      x-operation-id-source: derived
+  /iriz/v1/escalate:
+    get:
+      summary: IRIZ GET /iriz/escalate (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1Escalate
+      x-operation-id-source: derived
+  /iriz/v1/deploy-checklist:
+    get:
+      summary: IRIZ GET /iriz/deploy-checklist (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1DeployChecklist
+      x-operation-id-source: derived
+  /iriz/v1/deploy-chaos-test:
+    post:
+      summary: IRIZ POST /iriz/deploy-chaos-test (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: postIrizV1DeployChaosTest
+      x-operation-id-source: derived
+  /iriz/v1/debug/sentry-test:
+    get:
+      summary: IRIZ GET /iriz/debug/sentry-test (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1DebugSentryTest
+      x-operation-id-source: derived
+  /iriz/v1/docs/spec.json:
+    get:
+      summary: IRIZ GET /iriz/docs/spec.json (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1DocsSpecJson
+      x-operation-id-source: derived
+  /iriz/v1/docs:
+    get:
+      summary: IRIZ GET /iriz/docs (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1Docs
+      x-operation-id-source: derived
+  /iriz/v1/version:
+    get:
+      summary: IRIZ GET /iriz/version (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1Version
+      x-operation-id-source: derived
+  /iriz/v1/debug-auth:
+    get:
+      summary: IRIZ GET /iriz/debug-auth (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1DebugAuth
+      x-operation-id-source: derived
+  /iriz/v1/pdf:
+    get:
+      summary: IRIZ GET /iriz/pdf (v1)
+      parameters:
+      - name: v
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1Pdf
+      x-operation-id-source: derived
+  /iriz/v1/chat-fragment:
+    get:
+      summary: IRIZ GET /iriz/chat-fragment (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1ChatFragment
+      x-operation-id-source: derived
+  /iriz/v1/intake-fragment:
+    get:
+      summary: IRIZ GET /iriz/intake-fragment (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1IntakeFragment
+      x-operation-id-source: derived
+  /iriz/v1/sprint-validate:
+    get:
+      summary: IRIZ GET /iriz/sprint-validate (v1)
+      parameters:
+      - name: sprint_id
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1SprintValidate
+      x-operation-id-source: derived
+  /iriz/v1/sprint-source:
+    get:
+      summary: IRIZ GET /iriz/sprint-source (v1)
+      parameters:
+      - name: sprint
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1SprintSource
+      x-operation-id-source: derived
+  /iriz/v1/start-workflow:
+    get:
+      summary: IRIZ GET /iriz/start-workflow (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1StartWorkflow
+      x-operation-id-source: derived
+  /iriz/v1/workflow-status:
+    get:
+      summary: IRIZ GET /iriz/workflow-status (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: getIrizV1WorkflowStatus
+      x-operation-id-source: derived
+  /iriz/v1/qa-ingest:
+    post:
+      summary: IRIZ POST /iriz/qa-ingest (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: postIrizV1QaIngest
+      x-operation-id-source: derived
+  /iriz/v1/intake-bug:
+    post:
+      summary: IRIZ POST /iriz/intake-bug (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: postIrizV1IntakeBug
+      x-operation-id-source: derived
+  /iriz/v1/antigravity-sync:
+    post:
+      summary: IRIZ POST /iriz/antigravity-sync (v1)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Iriz
+      operationId: postIrizV1AntigravitySync
+      x-operation-id-source: derived
+  /iriz/v1/agent/catalog:
+    get:
+      summary: 'Sprint 120: Agent-readable brand catalog (structured for shopping agents) (v1)'
+      parameters:
+      - name: slug
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Catalog payload with checkout_contract
+        '403':
+          description: Feature disabled
+        '404':
+          description: Brand not found
+      tags:
+      - Iriz
+      operationId: getIrizV1AgentCatalog
+      x-operation-id-source: derived
+  /iriz/v1/agent/cart/session:
+    post:
+      summary: 'Sprint 120: Create agent cart session (v1)'
+      responses:
+        '200':
+          description: Cart session with cart_token
+        '400':
+          description: Invalid request
+        '401':
+          description: Agent token required when configured
+      tags:
+      - Iriz
+      operationId: postIrizV1AgentCartSession
+      x-operation-id-source: derived
+  /iriz/v1/agent/cart/quote:
+    post:
+      summary: 'Sprint 120: Quote cart with inventory hold (v1)'
+      responses:
+        '200':
+          description: Quote with quote_id
+        '400':
+          description: Invalid cart
+      tags:
+      - Iriz
+      operationId: postIrizV1AgentCartQuote
+      x-operation-id-source: derived
+  /iriz/v1/agent/checkout/confirm:
+    post:
+      summary: 'Sprint 120: Confirm agent checkout (demo or Stripe) (v1)'
+      responses:
+        '200':
+          description: Order confirmed or Stripe redirect
+        '409':
+          description: Quote mismatch
+      tags:
+      - Iriz
+      operationId: postIrizV1AgentCheckoutConfirm
+      x-operation-id-source: derived
+  /iriz/v1/agent-commerce/status:
+    get:
+      summary: 'Sprint 120: Agentic checkout flags and route map (v1)'
+      responses:
+        '200':
+          description: Status facet
+        '401':
+          description: Boss auth required
+      tags:
+      - Iriz
+      operationId: getIrizV1AgentCommerceStatus
+      x-operation-id-source: derived
+  /iriz/v1/brand-pages/dynamic-merchandising/plan:
+    get:
+      summary: 'Sprint 121: Dynamic merchandising ranked product plan (v1)'
+      parameters:
+      - name: slug
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: intent
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ranked products with merch badges
+        '404':
+          description: Brand not found
+      tags:
+      - Iriz
+      operationId: getIrizV1BrandPagesDynamicMerchandisingPlan
+      x-operation-id-source: derived
+  /iriz/v1/brand-pages/dynamic-merchandising/apply:
+    post:
+      summary: 'Sprint 121: Persist merchandising plan to KV for storefront (v1)'
+      responses:
+        '200':
+          description: Plan persisted
+        '401':
+          description: Boss auth required
+      tags:
+      - Iriz
+      operationId: postIrizV1BrandPagesDynamicMerchandisingApply
+      x-operation-id-source: derived
+  /iriz/v1/brand-pages/dynamic-merchandising/fleet/run:
+    post:
+      summary: 'Sprint 121: Fleet merchandising tick for flagship slugs (v1)'
+      responses:
+        '200':
+          description: Fleet summary
+      tags:
+      - Iriz
+      operationId: postIrizV1BrandPagesDynamicMerchandisingFleetRun
+      x-operation-id-source: derived
+  /iriz/chat/stream:
+    get:
+      summary: IRIZ GET /iriz/chat/stream (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizChatStream
+      x-operation-id-source: derived
+  /iriz/deploy-monitor:
+    get:
+      summary: IRIZ GET /iriz/deploy-monitor (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizDeployMonitor
+      x-operation-id-source: derived
+  /iriz/escalate:
+    get:
+      summary: IRIZ GET /iriz/escalate (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizEscalate
+      x-operation-id-source: derived
+  /iriz/deploy-checklist:
+    get:
+      summary: IRIZ GET /iriz/deploy-checklist (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizDeployChecklist
+      x-operation-id-source: derived
+  /iriz/deploy-chaos-test:
+    post:
+      summary: IRIZ POST /iriz/deploy-chaos-test (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: postIrizDeployChaosTest
+      x-operation-id-source: derived
+  /iriz/debug/sentry-test:
+    get:
+      summary: IRIZ GET /iriz/debug/sentry-test (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizDebugSentryTest
+      x-operation-id-source: derived
+  /iriz/docs/spec.json:
+    get:
+      summary: IRIZ GET /iriz/docs/spec.json (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizDocsSpecJson
+      x-operation-id-source: derived
+  /iriz/docs:
+    get:
+      summary: IRIZ GET /iriz/docs (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizDocs
+      x-operation-id-source: derived
+  /iriz/version:
+    get:
+      summary: IRIZ GET /iriz/version (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizVersion
+      x-operation-id-source: derived
+  /iriz/debug-auth:
+    get:
+      summary: IRIZ GET /iriz/debug-auth (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizDebugAuth
+      x-operation-id-source: derived
+  /iriz/pdf:
+    get:
+      summary: IRIZ GET /iriz/pdf (legacy — use versioned path)
+      parameters:
+      - name: v
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizPdf
+      x-operation-id-source: derived
+  /iriz/chat-fragment:
+    get:
+      summary: IRIZ GET /iriz/chat-fragment (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizChatFragment
+      x-operation-id-source: derived
+  /iriz/intake-fragment:
+    get:
+      summary: IRIZ GET /iriz/intake-fragment (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizIntakeFragment
+      x-operation-id-source: derived
+  /iriz/sprint-validate:
+    get:
+      summary: IRIZ GET /iriz/sprint-validate (legacy — use versioned path)
+      parameters:
+      - name: sprint_id
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizSprintValidate
+      x-operation-id-source: derived
+  /iriz/sprint-source:
+    get:
+      summary: IRIZ GET /iriz/sprint-source (legacy — use versioned path)
+      parameters:
+      - name: sprint
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizSprintSource
+      x-operation-id-source: derived
+  /iriz/start-workflow:
+    get:
+      summary: IRIZ GET /iriz/start-workflow (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizStartWorkflow
+      x-operation-id-source: derived
+  /iriz/workflow-status:
+    get:
+      summary: IRIZ GET /iriz/workflow-status (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizWorkflowStatus
+      x-operation-id-source: derived
+  /iriz/qa-ingest:
+    post:
+      summary: IRIZ POST /iriz/qa-ingest (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: postIrizQaIngest
+      x-operation-id-source: derived
+  /iriz/intake-bug:
+    post:
+      summary: IRIZ POST /iriz/intake-bug (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: postIrizIntakeBug
+      x-operation-id-source: derived
+  /iriz/antigravity-sync:
+    post:
+      summary: IRIZ POST /iriz/antigravity-sync (legacy — use versioned path)
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: postIrizAntigravitySync
+      x-operation-id-source: derived
+  /iriz/agent/catalog:
+    get:
+      summary: 'Sprint 120: Agent-readable brand catalog (structured for shopping agents)…'
+      parameters:
+      - name: slug
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Catalog payload with checkout_contract
+        '403':
+          description: Feature disabled
+        '404':
+          description: Brand not found
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizAgentCatalog
+      x-operation-id-source: derived
+  /iriz/agent/cart/session:
+    post:
+      summary: 'Sprint 120: Create agent cart session (legacy — use versioned path)'
+      responses:
+        '200':
+          description: Cart session with cart_token
+        '400':
+          description: Invalid request
+        '401':
+          description: Agent token required when configured
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: postIrizAgentCartSession
+      x-operation-id-source: derived
+  /iriz/agent/cart/quote:
+    post:
+      summary: 'Sprint 120: Quote cart with inventory hold (legacy — use versioned path)'
+      responses:
+        '200':
+          description: Quote with quote_id
+        '400':
+          description: Invalid cart
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: postIrizAgentCartQuote
+      x-operation-id-source: derived
+  /iriz/agent/checkout/confirm:
+    post:
+      summary: 'Sprint 120: Confirm agent checkout (demo or Stripe) (legacy — use versioned…'
+      responses:
+        '200':
+          description: Order confirmed or Stripe redirect
+        '409':
+          description: Quote mismatch
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: postIrizAgentCheckoutConfirm
+      x-operation-id-source: derived
+  /iriz/agent-commerce/status:
+    get:
+      summary: 'Sprint 120: Agentic checkout flags and route map (legacy — use versioned path)'
+      responses:
+        '200':
+          description: Status facet
+        '401':
+          description: Boss auth required
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizAgentCommerceStatus
+      x-operation-id-source: derived
+  /iriz/brand-pages/dynamic-merchandising/plan:
+    get:
+      summary: 'Sprint 121: Dynamic merchandising ranked product plan (legacy — use versioned…'
+      parameters:
+      - name: slug
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: intent
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ranked products with merch badges
+        '404':
+          description: Brand not found
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: getIrizBrandPagesDynamicMerchandisingPlan
+      x-operation-id-source: derived
+  /iriz/brand-pages/dynamic-merchandising/apply:
+    post:
+      summary: 'Sprint 121: Persist merchandising plan to KV for storefront (legacy — use…'
+      responses:
+        '200':
+          description: Plan persisted
+        '401':
+          description: Boss auth required
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: postIrizBrandPagesDynamicMerchandisingApply
+      x-operation-id-source: derived
+  /iriz/brand-pages/dynamic-merchandising/fleet/run:
+    post:
+      summary: 'Sprint 121: Fleet merchandising tick for flagship slugs (legacy — use versioned…'
+      responses:
+        '200':
+          description: Fleet summary
+      deprecated: true
+      tags:
+      - Iriz
+      operationId: postIrizBrandPagesDynamicMerchandisingFleetRun
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: query
+      name: p
+      description: Platform gateway password or token
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

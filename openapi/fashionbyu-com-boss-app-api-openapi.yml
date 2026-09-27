@@ -1,0 +1,45 @@
+openapi: 3.2.0
+info:
+  title: IRIZ Platform Boss App API
+  version: v4.10.829+api-v1
+  description: 'Auto-generated OpenAPI specification for IRIZ endpoints. This spec is auto-validated during the CI/CD pipeline.
+
+
+    ## API versioning
+
+    Canonical base path: `/iriz/v1/`.
+
+    Legacy `/iriz/` paths remain available but are deprecated in this spec.
+
+    See GET /iriz/versions and docs/API_VERSIONING.md.'
+tags:
+- name: Boss App
+paths:
+  /boss-app/sw.js:
+    get:
+      summary: IRIZ GET /boss-app/sw.js
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Boss App
+      operationId: getBossAppSwJs
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: query
+      name: p
+      description: Platform gateway password or token
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

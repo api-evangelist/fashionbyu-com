@@ -51,64 +51,16 @@ tags_raw:
 - Orders
 - Cloudflare Workers
 apis:
-- name: IRIZ Platform API
-  description: 'First-party REST API of the IRIZ storefront platform, described by an auto-generated OpenAPI 3.0.0
-    document (info.title "IRIZ Platform API", info.version v4.10.829+api-v1, 108 operations, no operationIds, no
-    component schemas, response descriptions only) served at https://mirror.fashionbyu.com/iriz/v1/docs/spec.json and
-    rendered by Swagger UI at /iriz/docs. Canonical base path /iriz/v1/; the 28 legacy /iriz/* and root paths are marked
-    deprecated and answer with Deprecation: true plus a Link rel="successor-version" header. The public, unauthenticated
-    slice is the agent-commerce surface (GET /iriz/v1/agent/catalog, POST /iriz/v1/agent/cart/session, /cart/quote,
-    /checkout/confirm, GET /iriz/agent/brands, /iriz/agent/search, /iriz/agent/policies, GET /iriz/health, GET
-    /iriz/versions); the platform-operations routes (deploy, vigil, sentinel, healer, scribe, herald, boss) answer 401
-    {"code":"UNAUTHORIZED","auth_level":"standard"|"boss"}. Security schemes: apiKey in query param p, and bearer JWT.'
-  humanURL: https://mirror.fashionbyu.com/iriz/docs
-  baseURL: https://mirror.fashionbyu.com/iriz/v1
-  tags:
-  - E-Commerce
-  - Agentic Commerce
-  - Catalog
-  - Cart
-  - Checkout
-  - Platform Operations
-  tags_raw:
-  - Ecommerce
-  - Agentic Commerce
-  - Catalog
-  - Carts
-  - Checkout
-  - Platform Operations
-  properties:
-  - type: OpenAPI
-    url: openapi/fashionbyu-com-iriz-platform-api-openapi.yml
-  - type: OpenAPI
-    name: OpenAPI (provider-hosted, canonical)
-    url: https://mirror.fashionbyu.com/iriz/v1/docs/spec.json
-  - type: Documentation
-    url: https://mirror.fashionbyu.com/iriz/docs
-  - type: APIReference
-    url: https://mirror.fashionbyu.com/iriz/docs
-  - type: Documentation
-    name: API versioning
-    url: https://mirror.fashionbyu.com/iriz/docs/versioning
-  - type: Overlay
-    url: overlays/fashionbyu-com-iriz-platform-api-overlay.yaml
-  - type: ErrorCatalog
-    url: errors/fashionbyu-com-problem-types.yml
-  - type: Lifecycle
-    url: lifecycle/fashionbyu-com-lifecycle.yml
-  - type: Conventions
-    url: conventions/fashionbyu-com-conventions.yml
-  - type: AgentSkill
-    url: skills/_index.yml
 - name: IRIZ Storefront Commerce MCP Server
-  description: 'Hosted, remote MCP server (serverInfo iriz-agent-commerce 1.0.0, protocolVersion 2025-06-18, transport
-    streamable-http) at https://mirror.fashionbyu.com/iriz/v1/agent/mcp (the legacy /iriz/agent/mcp still answers and
-    carries Deprecation: true with a successor-version Link). tools/list and the read tools answer unauthenticated
-    (search_catalog was called live on 2026-09-19 and returned BWET Swimwear products with variants and schema.org
-    JSON-LD); the server''s own instructions state that write tools (create_cart, mutate_cart, quote_cart,
-    confirm_checkout) require a bearer token only when the operator configures IRIZ_AGENT_COMMERCE_TOKEN, and the
-    commerce agent card records token_required: false. Nine tools with inputSchema, bound to the /iriz/v1/agent/*
-    REST routes.'
+  description: >-
+    Hosted, remote MCP server (serverInfo iriz-agent-commerce 1.0.0, protocolVersion 2025-06-18, transport
+    streamable-http) at https://mirror.fashionbyu.com/iriz/v1/agent/mcp (the legacy /iriz/agent/mcp still
+    answers and carries Deprecation: true with a successor-version Link). tools/list and the read tools
+    answer unauthenticated (search_catalog was called live on 2026-09-19 and returned BWET Swimwear products
+    with variants and schema.org JSON-LD); the server's own instructions state that write tools (create_cart,
+    mutate_cart, quote_cart, confirm_checkout) require a bearer token only when the operator configures
+    IRIZ_AGENT_COMMERCE_TOKEN, and the commerce agent card records token_required: false. Nine tools with
+    inputSchema, bound to the /iriz/v1/agent/* REST routes.
   humanURL: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
   baseURL: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
   tags:
@@ -139,14 +91,15 @@ apis:
   - type: LLMsTxt
     url: llms/fashionbyu-com-llms.txt
 - name: IRIZ Platform A2A Interop Agent
-  description: 'A2A agent card ("IRIZ Platform Agent", version 1.0.0, protocolVersions ["0.3","A2A-1.4"]) served at the
-    legacy path https://mirror.fashionbyu.com/.well-known/agent.json and at https://fashionbyu.com/.well-known/agent.json.
-    Four skills on the mirror host (propose_improvement, platform_status, revision_request, coding_task; the root-host
-    copy lists two and sets x-iriz.enabled false). The task endpoint https://mirror.fashionbyu.com/iriz/interop/tasks
-    answers a GET with 404 endpoint_not_found and an unauthenticated POST with 401 peer_credentials_required, so the
-    transport is served and gated on registered-peer credentials (HMAC-SHA256 x-iriz-peer-sig headers, a short-lived
-    bearer from POST /iriz/interop/token, or an RFC 9421 HTTP message signature). Declares A2UI output and an AP2
-    verify endpoint (ap2_max_usd_default 0).'
+  description: >-
+    A2A agent card ("IRIZ Platform Agent", version 1.0.0, protocolVersions ["0.3","A2A-1.4"]) served at
+    the legacy path https://mirror.fashionbyu.com/.well-known/agent.json and at https://fashionbyu.com/.well-known/agent.json.
+    Four skills on the mirror host (propose_improvement, platform_status, revision_request, coding_task;
+    the root-host copy lists two and sets x-iriz.enabled false). The task endpoint https://mirror.fashionbyu.com/iriz/interop/tasks
+    answers a GET with 404 endpoint_not_found and an unauthenticated POST with 401 peer_credentials_required,
+    so the transport is served and gated on registered-peer credentials (HMAC-SHA256 x-iriz-peer-sig headers,
+    a short-lived bearer from POST /iriz/interop/token, or an RFC 9421 HTTP message signature). Declares
+    A2UI output and an AP2 verify endpoint (ap2_max_usd_default 0).
   humanURL: https://mirror.fashionbyu.com/.well-known/agent.json
   baseURL: https://mirror.fashionbyu.com/iriz/interop/tasks
   tags:
@@ -160,12 +113,608 @@ apis:
   - type: AgentCard
     name: Platform Interop agent card (provider-hosted, legacy path)
     url: https://mirror.fashionbyu.com/.well-known/agent.json
+- aid: fashionbyu-com:fashionbyu-com-about-api
+  name: IRIZ Platform About API
+  description: The About API from IRIZ Platform — 1 operation(s) for about.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - About
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-about-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-account-api
+  name: IRIZ Platform Account API
+  description: The Account API from IRIZ Platform — 1 operation(s) for account.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-account-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-admin-api
+  name: IRIZ Platform Admin API
+  description: The Admin API from IRIZ Platform — 1 operation(s) for admin.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Admin
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-admin-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-agent-memory-api
+  name: IRIZ Platform Agent Memory API
+  description: The Agent Memory API from IRIZ Platform — 1 operation(s) for agent memory.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Agent Memory
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-agent-memory-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-app-health-api
+  name: IRIZ Platform App Health API
+  description: The App Health API from IRIZ Platform — 1 operation(s) for app health.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - App Health
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-app-health-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-boss-agent-api
+  name: IRIZ Platform Boss Agent API
+  description: The Boss Agent API from IRIZ Platform — 1 operation(s) for boss agent.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Boss Agent
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-boss-agent-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-boss-api
+  name: IRIZ Platform Boss API
+  description: The Boss API from IRIZ Platform — 1 operation(s) for boss.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Boss
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-boss-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-boss-app-api
+  name: IRIZ Platform Boss App API
+  description: The Boss App API from IRIZ Platform — 1 operation(s) for boss app.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Boss App
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-boss-app-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-boss-ws-api
+  name: IRIZ Platform Boss Ws API
+  description: The Boss Ws API from IRIZ Platform — 1 operation(s) for boss ws.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Boss Ws
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-boss-ws-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-cart-api
+  name: IRIZ Platform Cart API
+  description: The Cart API from IRIZ Platform — 1 operation(s) for cart.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Cart
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-cart-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-chat-api
+  name: IRIZ Platform Chat API
+  description: The Chat API from IRIZ Platform — 3 operation(s) for chat.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-chat-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-debug-api
+  name: IRIZ Platform Debug API
+  description: The Debug API from IRIZ Platform — 3 operation(s) for debug.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Debug
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-debug-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-discover-api
+  name: IRIZ Platform Discover API
+  description: The Discover API from IRIZ Platform — 1 operation(s) for discover.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Discover
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-discover-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-healer-api
+  name: IRIZ Platform Healer API
+  description: The Healer API from IRIZ Platform — 5 operation(s) for healer.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Healer
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-healer-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-health-api
+  name: IRIZ Platform Health API
+  description: The Health API from IRIZ Platform — 1 operation(s) for health.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-health-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-herald-api
+  name: IRIZ Platform Herald API
+  description: The Herald API from IRIZ Platform — 7 operation(s) for herald.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Herald
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-herald-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-intake-api
+  name: IRIZ Platform Intake API
+  description: The Intake API from IRIZ Platform — 1 operation(s) for intake.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Intake
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-intake-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-iris-deploy-api
+  name: IRIZ Platform Iris Deploy API
+  description: The Iris Deploy API from IRIZ Platform — 1 operation(s) for iris deploy.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Iris Deploy
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-iris-deploy-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-iris-source-api
+  name: IRIZ Platform Iris Source API
+  description: The Iris Source API from IRIZ Platform — 1 operation(s) for iris source.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Iris Source
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-iris-source-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-iriz-api
+  name: IRIZ Platform Iriz API
+  description: The Iriz API from IRIZ Platform — 56 operation(s) for iriz.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Iriz
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-iriz-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-manifest-json-api
+  name: IRIZ Platform Manifest.json API
+  description: The Manifest.json API from IRIZ Platform — 1 operation(s) for manifest.json.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Manifest.json
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-manifest-json-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-mcp-api
+  name: IRIZ Platform MCP API
+  description: The Mcp API from IRIZ Platform — 1 operation(s) for mcp.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Mcp
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-mcp-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-robots-txt-api
+  name: IRIZ Platform Robots.txt API
+  description: The Robots.txt API from IRIZ Platform — 1 operation(s) for robots.txt.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Robots.txt
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-robots-txt-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-scribe-api
+  name: IRIZ Platform Scribe API
+  description: The Scribe API from IRIZ Platform — 4 operation(s) for scribe.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Scribe
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-scribe-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-sentinel-api
+  name: IRIZ Platform Sentinel API
+  description: The Sentinel API from IRIZ Platform — 4 operation(s) for sentinel.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Sentinel
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-sentinel-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-status-api
+  name: IRIZ Platform Status API
+  description: The Status API from IRIZ Platform — 1 operation(s) for status.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-status-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
+- aid: fashionbyu-com:fashionbyu-com-vigil-api
+  name: IRIZ Platform Vigil API
+  description: The Vigil API from IRIZ Platform — 7 operation(s) for vigil.
+  humanURL: https://mirror.fashionbyu.com/iriz/docs
+  baseURL: https://mirror.fashionbyu.com/iriz/v1
+  tags:
+  - Vigil
+  properties:
+  - type: OpenAPI
+    url: openapi/fashionbyu-com-vigil-api-openapi.yml
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: APIReference
+    url: https://mirror.fashionbyu.com/iriz/docs
+  - type: Documentation
+    url: https://mirror.fashionbyu.com/iriz/docs/versioning
+  - type: ErrorCatalog
+    url: errors/fashionbyu-com-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fashionbyu-com-lifecycle.yml
+  - type: Conventions
+    url: conventions/fashionbyu-com-conventions.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/fashionbyu-com-iriz-platform-api-overlay.yaml
 - type: DomainSecurity
   url: security/fashionbyu-com-domain-security.yml
 - type: AgenticAccess

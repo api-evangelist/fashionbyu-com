@@ -1,0 +1,147 @@
+openapi: 3.2.0
+info:
+  title: IRIZ Platform Vigil API
+  version: v4.10.829+api-v1
+  description: 'Auto-generated OpenAPI specification for IRIZ endpoints. This spec is auto-validated during the CI/CD pipeline.
+
+
+    ## API versioning
+
+    Canonical base path: `/iriz/v1/`.
+
+    Legacy `/iriz/` paths remain available but are deprecated in this spec.
+
+    See GET /iriz/versions and docs/API_VERSIONING.md.'
+tags:
+- name: Vigil
+paths:
+  /vigil/run-now:
+    get:
+      summary: IRIZ GET /vigil/run-now
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Vigil
+      operationId: getVigilRunNow
+      x-operation-id-source: derived
+  /vigil/promotion-gate:
+    get:
+      summary: IRIZ GET /vigil/promotion-gate
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Vigil
+      operationId: getVigilPromotionGate
+      x-operation-id-source: derived
+  /vigil/reset-gate:
+    get:
+      summary: IRIZ GET /vigil/reset-gate
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Vigil
+      operationId: getVigilResetGate
+      x-operation-id-source: derived
+  /vigil/scan:
+    get:
+      summary: IRIZ GET /vigil/scan
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Vigil
+      operationId: getVigilScan
+      x-operation-id-source: derived
+  /vigil/gaps:
+    get:
+      summary: IRIZ GET /vigil/gaps
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Vigil
+      operationId: getVigilGaps
+      x-operation-id-source: derived
+  /vigil/triage_bug:
+    get:
+      summary: IRIZ GET /vigil/triage_bug
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Vigil
+      operationId: getVigilTriageBug
+      x-operation-id-source: derived
+  /vigil/status:
+    get:
+      summary: IRIZ GET /vigil/status
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+      - Vigil
+      operationId: getVigilStatus
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: query
+      name: p
+      description: Platform gateway password or token
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
