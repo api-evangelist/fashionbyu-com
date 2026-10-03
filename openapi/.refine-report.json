@@ -32,9 +32,7 @@
     "fashionbyu-com-status-api-openapi.yml",
     "fashionbyu-com-vigil-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -175,10 +173,35 @@
     "fashionbyu-com-iriz-platform-api-openapi.json: declared missing tag: Sentinel",
     "fashionbyu-com-iriz-platform-api-openapi.json: declared missing tag: Status",
     "fashionbyu-com-iriz-platform-api-openapi.json: declared missing tag: Vigil",
-    "superseded outputs removed: fashionbyu-com-iriz-platform-api-openapi.yml",
-    "apis.yml register: written (+27 apis, 29 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
-    "fashionbyu-com-iriz-platform-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+    "fashionbyu-com-about-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-admin-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-agent-memory-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-app-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-boss-agent-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-boss-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-boss-app-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-boss-ws-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-cart-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-debug-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-discover-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-healer-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-herald-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-intake-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-iris-deploy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-iris-source-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-iriz-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-manifest-json-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-mcp-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-robots-txt-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-scribe-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-sentinel-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fashionbyu-com-vigil-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }
