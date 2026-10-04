@@ -581,6 +581,8 @@ apis:
   humanURL: https://mirror.fashionbyu.com/iriz/docs
   baseURL: https://mirror.fashionbyu.com/iriz/v1
   tags:
+  - MCP
+  tags_raw:
   - Mcp
   properties:
   - type: OpenAPI
