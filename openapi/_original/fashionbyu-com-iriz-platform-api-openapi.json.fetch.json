@@ -1,0 +1,12 @@
+{
+ "url": "https://mirror.fashionbyu.com/iriz/v1/docs/spec.json",
+ "requested_url": "https://mirror.fashionbyu.com/iriz/v1/docs/spec.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 32067,
+ "sha256": "aeb7a18f6120c332ed1e522141a6a0c0720b3f46988c261486f052c7225faea4",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
