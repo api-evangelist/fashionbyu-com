@@ -1,0 +1,22 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/fashionbyu-com/integrations
+- https://zapier.com/apps/fashionbyu/integrations
+- https://zapier.com/apps/iriz-platform/integrations
+- https://n8n.io/integrations/fashionbyu-com/
+- https://n8n.io/integrations/fashionbyu/
+- https://composio.dev/toolkits/fashionbyu-com
+- https://monid.ai/tools/fashionbyu-com
+checked:
+- https://composio.dev/toolkits/fashionbyu-com
+- https://monid.ai/tools/fashionbyu-com
+- https://n8n.io/integrations/fashionbyu-com/
+- https://n8n.io/integrations/fashionbyu/
+- https://zapier.com/apps/fashionbyu-com/integrations
+- https://zapier.com/apps/fashionbyu/integrations
+- https://zapier.com/apps/iriz-platform/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
