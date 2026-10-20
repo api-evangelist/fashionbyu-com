@@ -1,35 +1,38 @@
 generated: '2026-09-19'
 method: probed
 status: published
-source: https://mirror.fashionbyu.com/iriz/v1/agent/mcp (POST initialize + tools/list, 2026-09-19); advertised by https://mirror.fashionbyu.com/.well-known/agent-card.json
-  x-commerce.mcp, by llms.txt and by robots.txt
+source: https://mirror.fashionbyu.com/iriz/v1/agent/mcp (POST initialize + tools/list, 2026-09-19); advertised
+  by https://mirror.fashionbyu.com/.well-known/agent-card.json x-commerce.mcp, by llms.txt and by robots.txt
 server:
   name: iriz-agent-commerce
   version: 1.0.0
   protocol_version: '2025-06-18'
   transport: http
-  transport_detail: streamable-http (POST JSON-RPC; Accept application/json, text/event-stream; responses returned as application/json)
+  transport_detail: streamable-http (POST JSON-RPC; Accept application/json, text/event-stream; responses
+    returned as application/json)
   url: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
   legacy_url: https://mirror.fashionbyu.com/iriz/agent/mcp
-  legacy_note: 'The legacy path answers identically but every response carries Deprecation: true and Link: </iriz/v1/agent/mcp>;
-    rel="successor-version". The registrable domain fashionbyu.com returns 404 for both paths; www.fashionbyu.com (the host
-    llms.txt/robots.txt advertise) is NXDOMAIN.'
+  legacy_note: 'The legacy path answers identically but every response carries Deprecation: true and Link:
+    </iriz/v1/agent/mcp>; rel="successor-version". The registrable domain fashionbyu.com returns 404 for
+    both paths; www.fashionbyu.com (the host llms.txt/robots.txt advertise) is NXDOMAIN.'
   capabilities:
     tools:
       listChanged: false
-  instructions: 'Agentic storefront commerce: search catalogs, manage carts, quote and confirm checkout, and track orders.
-    Read tools are public; write tools require a bearer token when IRIZ_AGENT_COMMERCE_TOKEN is configured.'
-  info_document: GET https://mirror.fashionbyu.com/iriz/v1/agent/mcp returns a JSON description of the server (tools, REST
-    route map, write_auth) — 200, application/json
+  instructions: 'Agentic storefront commerce: search catalogs, manage carts, quote and confirm checkout,
+    and track orders. Read tools are public; write tools require a bearer token when IRIZ_AGENT_COMMERCE_TOKEN
+    is configured.'
+  info_document: GET https://mirror.fashionbyu.com/iriz/v1/agent/mcp returns a JSON description of the
+    server (tools, REST route map, write_auth) — 200, application/json
 deployment:
   mode: remote
   endpoint: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
   install: null
   package: null
   auth: none
-  auth_note: 'tools/list, initialize and the read tools (search_catalog called live) answer with no credentials. The server
-    instructions and the GET info document say write tools take "Authorization: Bearer <IRIZ_AGENT_COMMERCE_TOKEN> when
-    configured"; the commerce agent card records token_required: false. No OAuth metadata is served on any host (see well-known/).'
+  auth_note: 'tools/list, initialize and the read tools (search_catalog called live) answer with no credentials.
+    The server instructions and the GET info document say write tools take "Authorization: Bearer <IRIZ_AGENT_COMMERCE_TOKEN>
+    when configured"; the commerce agent card records token_required: false. No OAuth metadata is served
+    on any host (see well-known/).'
   verified: probed
 auth:
   methods:
@@ -48,8 +51,8 @@ tool_count: 9
 tools:
 - name: search_catalog
   category: catalog
-  description: Search a brand storefront catalog. Returns structured products with price, availability, variants, PDP URLs,
-    and the checkout contract.
+  description: Search a brand storefront catalog. Returns structured products with price, availability,
+    variants, PDP URLs, and the checkout contract.
   required:
   - brand_slug
   input_properties:
@@ -60,8 +63,8 @@ tools:
   source_operation: null
 - name: get_product_feed
   category: catalog
-  description: Get the machine-readable product feed URL (OpenAI/ACP product feed JSON) and llms.txt discovery file for
-    a brand.
+  description: Get the machine-readable product feed URL (OpenAI/ACP product feed JSON) and llms.txt discovery
+    file for a brand.
   required:
   - brand_slug
   input_properties:
@@ -70,7 +73,8 @@ tools:
   source_operation: null
 - name: get_policies
   category: policies
-  description: Get shipping, delivery, returns, refund, privacy, and terms policy page URLs for a brand storefront.
+  description: Get shipping, delivery, returns, refund, privacy, and terms policy page URLs for a brand
+    storefront.
   required:
   - brand_slug
   input_properties:
@@ -158,9 +162,9 @@ x-evidence:
   method: POST tools/list
   http_status: 200
   content_type: application/json
-  note: 'nine tools with inputSchema; headers iriz-api-version: v1, iriz-api-versioned-path: /iriz/v1/agent/mcp, iriz-contract-validation:
-    failed ($.ok: missing required field — the server validates its own responses against an internal contract and reports
-    the miss in a header)'
+  note: 'nine tools with inputSchema; headers iriz-api-version: v1, iriz-api-versioned-path: /iriz/v1/agent/mcp,
+    iriz-contract-validation: failed ($.ok: missing required field — the server validates its own responses
+    against an internal contract and reports the miss in a header)'
 - url: https://mirror.fashionbyu.com/iriz/v1/agent/mcp
   method: POST initialize
   http_status: 200
@@ -168,10 +172,36 @@ x-evidence:
 - url: https://mirror.fashionbyu.com/iriz/agent/mcp
   method: 'POST tools/call search_catalog {brand_slug: bwet, limit: 2}'
   http_status: 200
-  note: returned schema agent-commerce-s120-v1, two BWET Swimwear products with variants, agent_actions and schema.org Product
-    JSON-LD — a read tool, no state changed
+  note: returned schema agent-commerce-s120-v1, two BWET Swimwear products with variants, agent_actions
+    and schema.org Product JSON-LD — a read tool, no state changed
 - url: https://fashionbyu.com/iriz/agent/mcp
   http_status: 404
 - url: https://mirror.fashionbyu.com/.well-known/mcp.json
   http_status: 403
   note: '{"error":"Forbidden_4"} — not served'
+tool_quality:
+  tool_count: 9
+  tokens_total: 832
+  tokens_per_tool_median: 84
+  heavy_tools: []
+  heavy_tool_count: 0
+  params_total: 24
+  params_undescribed: 16
+  params_described_pct: 33.3
+  tools_with_undescribed_params: 9
+  tools_annotated: 0
+  annotated_pct: 0.0
+  state_changing_unhinted:
+  - create_cart
+  tools_missing_schema: 0
+  short_descriptions: 0
+  duplicate_descriptions: 0
+  duplicate_names: 0
+  nonportable_names: []
+  output_schema_count: 0
+  token_estimate: chars/3.6 of each compact tool definition
+  source: mcp/fashionbyu-com-mcp-tools-list.json
+  measured: '2026-10-20'
+  scored: false
+  note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
+    from Glimind's agent-readiness audit.
