@@ -50,9 +50,9 @@ auth:
 tool_count: 9
 tools:
 - name: search_catalog
-  category: catalog
   description: Search a brand storefront catalog. Returns structured products with price, availability,
     variants, PDP URLs, and the checkout contract.
+  category: catalog
   required:
   - brand_slug
   input_properties:
@@ -62,9 +62,9 @@ tools:
   - offset
   source_operation: null
 - name: get_product_feed
-  category: catalog
   description: Get the machine-readable product feed URL (OpenAI/ACP product feed JSON) and llms.txt discovery
     file for a brand.
+  category: catalog
   required:
   - brand_slug
   input_properties:
@@ -72,9 +72,9 @@ tools:
   - page_origin
   source_operation: null
 - name: get_policies
-  category: policies
   description: Get shipping, delivery, returns, refund, privacy, and terms policy page URLs for a brand
     storefront.
+  category: policies
   required:
   - brand_slug
   input_properties:
@@ -82,8 +82,8 @@ tools:
   - page_origin
   source_operation: null
 - name: create_cart
-  category: cart
   description: Create an agent cart session. Returns a cart_token for subsequent mutations and quotes.
+  category: cart
   required: []
   input_properties:
   - brand_slug
@@ -92,8 +92,8 @@ tools:
   - email
   source_operation: null
 - name: mutate_cart
-  category: cart
   description: Add, set, or clear items on an existing cart session.
+  category: cart
   required:
   - cart_token
   input_properties:
@@ -102,16 +102,16 @@ tools:
   - items
   source_operation: null
 - name: get_cart
-  category: cart
   description: Read a cart session by cart_token.
+  category: cart
   required:
   - cart_token
   input_properties:
   - cart_token
   source_operation: null
 - name: quote_cart
-  category: checkout
   description: Quote a cart session — totals, shipping, tax before checkout.
+  category: checkout
   required:
   - cart_token
   input_properties:
@@ -119,8 +119,8 @@ tools:
   - shipping
   source_operation: null
 - name: confirm_checkout
-  category: checkout
   description: Confirm checkout for a quoted cart. Creates an order when the quote matches.
+  category: checkout
   required:
   - cart_token
   input_properties:
@@ -131,8 +131,8 @@ tools:
   - email
   source_operation: null
 - name: get_order
-  category: orders
   description: Track an order by order_id.
+  category: orders
   required:
   - order_id
   input_properties:
@@ -205,3 +205,4 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools_count: 9
